@@ -1,5 +1,4 @@
-import { useRef } from "react";
-import { useScrollProgress, useScrollThreshold } from "~/hooks";
+import { easeOutCubic } from "~/lib/utils";
 import { CanvasAnimation } from "./CanvasAnimation";
 import { HeroLogo } from "./HeroLogo";
 import { HeroHeadline } from "./HeroHeadline";
@@ -11,38 +10,34 @@ import { ClientStrip } from "~/components/clients";
 interface HeroSectionProps {
   frames: HTMLImageElement[];
   frameCount: number;
+  progress: number; // 0-1 wheel-driven progress
 }
 
-export function HeroSection({ frames, frameCount }: HeroSectionProps) {
-  const heroRef = useRef<HTMLElement>(null);
-  const { progress, easedProgress } = useScrollProgress({
-    containerRef: heroRef,
-    eased: true,
-  });
-
+export function HeroSection({ frames, frameCount, progress }: HeroSectionProps) {
+  // Apply easing for smoother frame animation
+  const easedProgress = easeOutCubic(progress);
+  
   const frameIndex = Math.min(
     frameCount - 1,
     Math.floor(easedProgress * frameCount)
   );
 
-  // Visibility thresholds - panels stay visible until end
-  const showScrollIndicator = !useScrollThreshold(progress, 0.02);
-  const showSpotlight = useScrollThreshold(progress, 0.1);
-  const showCanvasGlow = useScrollThreshold(progress, 0.15);
-  const showPanels = useScrollThreshold(progress, 0.05); // No upper limit - stays visible
+  // Visibility thresholds
+  const showScrollIndicator = progress < 0.02;
+  const showSpotlight = progress > 0.1;
+  const showCanvasGlow = progress > 0.15;
+  const showPanels = progress > 0.05; // Panels stay visible forever once shown
   const showClients = true; // Always visible from page load
 
   return (
     <section
-      ref={heroRef}
       id="hero"
-      style={{ position: "relative", height: "600vh", zIndex: 10 }}
+      style={{ position: "relative", height: "100vh", width: "100%", zIndex: 10 }}
     >
-      {/* Sticky fullscreen container */}
+      {/* Fullscreen container - no scroll, wheel-driven */}
       <div
         style={{
-          position: "sticky",
-          top: 0,
+          position: "relative",
           height: "100vh",
           width: "100%",
           display: "flex",
