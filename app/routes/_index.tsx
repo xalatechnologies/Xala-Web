@@ -27,8 +27,8 @@ export const meta: MetaFunction = () => {
   ];
 };
 
-// Full 192 frames for extended scroll experience
-const FRAME_COUNT = 192;
+// Updated 180 frames for consistent animation
+const FRAME_COUNT = 180;
 const FRAME_PATH = "/frames";
 
 // Scroll sensitivity - higher = faster scroll through frames

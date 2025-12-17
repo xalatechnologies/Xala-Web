@@ -26,8 +26,10 @@ export function HeroSection({ frames, frameCount, progress }: HeroSectionProps) 
   const showScrollIndicator = progress < 0.02;
   const showSpotlight = progress > 0.1;
   const showCanvasGlow = progress > 0.15;
-  const showPanels = progress > 0.05; // Panels stay visible forever once shown
   const showClients = true; // Always visible from page load
+  
+  // Panels: always visible, opacity increases from 90% to 100% as user scrolls
+  const panelOpacity = Math.min(1, 0.9 + progress * 1); // 0.9 at start, 1.0 by progress=0.1
 
   return (
     <section
@@ -95,13 +97,39 @@ export function HeroSection({ frames, frameCount, progress }: HeroSectionProps) 
           )}
 
           {/* Left Panel - Services */}
-          <div className="hidden lg:block">
-            <ServicePanel isVisible={showPanels} progress={progress} />
+          <div 
+            className="hidden lg:block" 
+            style={{ 
+              position: "absolute",
+              top: 0,
+              left: 0,
+              bottom: 0,
+              width: "380px",
+              opacity: panelOpacity, 
+              transition: "opacity 0.5s ease", 
+              zIndex: 30,
+              pointerEvents: "auto",
+            }}
+          >
+            <ServicePanel isVisible={true} progress={progress} />
           </div>
 
           {/* Right Panel - Products */}
-          <div className="hidden lg:block">
-            <ProductPanel isVisible={showPanels} progress={progress} />
+          <div 
+            className="hidden lg:block" 
+            style={{ 
+              position: "absolute",
+              top: 0,
+              right: 0,
+              bottom: 0,
+              width: "380px",
+              opacity: panelOpacity, 
+              transition: "opacity 0.5s ease", 
+              zIndex: 30,
+              pointerEvents: "auto",
+            }}
+          >
+            <ProductPanel isVisible={true} progress={progress} />
           </div>
 
           {/* Client Strip */}

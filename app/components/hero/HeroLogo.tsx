@@ -18,7 +18,7 @@ export function HeroLogo({ progress }: HeroLogoProps) {
     <div
       style={{
         position: "absolute",
-        top: "12%",
+        top: "8%",
         left: "50%",
         transform: `translateX(-50%) scale(${scale})`,
         zIndex: 20,

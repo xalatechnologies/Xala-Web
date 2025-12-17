@@ -12,7 +12,7 @@ export function HeroHeadline({ progress }: HeroHeadlineProps) {
     <div
       style={{
         position: "absolute",
-        top: "28%",
+        top: "22%",
         left: "50%",
         transform: `translateX(-50%) translateY(${translateY}px)`,
         zIndex: 25,
