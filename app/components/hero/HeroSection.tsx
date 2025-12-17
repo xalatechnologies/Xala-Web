@@ -26,19 +26,19 @@ export function HeroSection({ frames, frameCount }: HeroSectionProps) {
     Math.floor(easedProgress * frameCount)
   );
 
-  // Visibility thresholds matching original HTML
+  // Visibility thresholds - panels stay visible until end
   const showScrollIndicator = !useScrollThreshold(progress, 0.02);
   const showSpotlight = useScrollThreshold(progress, 0.1);
   const showCanvasGlow = useScrollThreshold(progress, 0.15);
   const showBrand = useScrollThreshold(progress, 0.82);
-  const showPanels = useScrollThreshold(progress, 0.05, 0.88);
-  const showClients = useScrollThreshold(progress, 0.22, 0.9);
+  const showPanels = useScrollThreshold(progress, 0.05); // No upper limit - stays visible
+  const showClients = useScrollThreshold(progress, 0.22); // No upper limit - stays visible
 
   return (
     <section
       ref={heroRef}
       id="hero"
-      style={{ position: "relative", height: "400vh", zIndex: 10 }}
+      style={{ position: "relative", height: "600vh", zIndex: 10 }}
     >
       {/* Sticky fullscreen container */}
       <div

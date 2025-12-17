@@ -29,7 +29,7 @@ export function ClientStrip({
     <div
       style={{
         position: "absolute",
-        bottom: "3%",
+        bottom: 0,
         left: 0,
         right: 0,
         zIndex: 20,
@@ -38,82 +38,91 @@ export function ClientStrip({
         transition: "opacity 1s ease",
       }}
     >
-      {/* Label with enhanced styling */}
+      {/* Light background strip for better logo visibility */}
       <div
         style={{
-          textAlign: "center",
-          marginBottom: "1.5rem",
-          opacity: isVisible ? 1 : 0,
-          transform: isVisible ? "translateY(0)" : "translateY(10px)",
-          transition: "all 0.6s ease 0.3s",
+          background: "linear-gradient(to top, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0.04) 50%, transparent 100%)",
+          backdropFilter: "blur(20px)",
+          WebkitBackdropFilter: "blur(20px)",
+          borderTop: "1px solid rgba(255,255,255,0.1)",
+          padding: "1.5rem 0 2rem",
         }}
       >
-        <span
-          style={{
-            position: "relative",
-            display: "inline-block",
-            fontFamily: "'Outfit', sans-serif",
-            fontSize: "0.8125rem",
-            fontWeight: 600,
-            letterSpacing: "0.2em",
-            textTransform: "uppercase",
-            color: "rgba(255,255,255,0.5)",
-            padding: "0.75rem 2rem",
-            background: "linear-gradient(135deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02))",
-            border: "1px solid rgba(255,255,255,0.1)",
-            borderRadius: "40px",
-            backdropFilter: "blur(12px)",
-            WebkitBackdropFilter: "blur(12px)",
-            boxShadow: "0 8px 32px rgba(0,0,0,0.25), inset 0 1px 0 rgba(255,255,255,0.08)",
-          }}
-        >
-          Trusted by Industry Leaders
-        </span>
-      </div>
-
-      {/* Track wrapper with mask */}
-      <div
-        style={{
-          position: "relative",
-          WebkitMaskImage: "linear-gradient(90deg, transparent 0%, black 10%, black 90%, transparent 100%)",
-          maskImage: "linear-gradient(90deg, transparent 0%, black 10%, black 90%, transparent 100%)",
-          padding: "0.75rem 0",
-        }}
-      >
-        {/* Scrolling track */}
+        {/* Label with enhanced styling */}
         <div
           style={{
-            display: "flex",
-            gap: "4rem",
-            animation: isVisible ? "scroll-clients 45s linear infinite" : "none",
-            width: "max-content",
+            textAlign: "center",
+            marginBottom: "1.25rem",
+            opacity: isVisible ? 1 : 0,
+            transform: isVisible ? "translateY(0)" : "translateY(10px)",
+            transition: "all 0.6s ease 0.3s",
           }}
         >
-          {duplicatedClients.map((client, index) => (
-            <img
-              key={`${client.name}-${index}`}
-              src={client.logo}
-              alt={client.name}
-              style={{
-                height: "24px",
-                opacity: 0.35,
-                filter: "grayscale(1) brightness(2)",
-                transition: "all 0.5s cubic-bezier(0.4, 0, 0.2, 1)",
-                cursor: "pointer",
-                flexShrink: 0,
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.opacity = "1";
-                e.currentTarget.style.filter = "grayscale(0) brightness(1)";
-                e.currentTarget.style.transform = "scale(1.15) translateY(-3px)";
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.opacity = "0.35";
-                e.currentTarget.style.filter = "grayscale(1) brightness(2)";
-                e.currentTarget.style.transform = "scale(1) translateY(0)";
-              }}
-            />
-          ))}
+          <span
+            style={{
+              position: "relative",
+              display: "inline-block",
+              fontFamily: "'Outfit', sans-serif",
+              fontSize: "0.8125rem",
+              fontWeight: 600,
+              letterSpacing: "0.2em",
+              textTransform: "uppercase",
+              color: "rgba(255,255,255,0.6)",
+              padding: "0.6rem 1.75rem",
+              background: "linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.04))",
+              border: "1px solid rgba(255,255,255,0.15)",
+              borderRadius: "40px",
+              boxShadow: "0 4px 20px rgba(0,0,0,0.15), inset 0 1px 0 rgba(255,255,255,0.1)",
+            }}
+          >
+            Trusted by Industry Leaders
+          </span>
+        </div>
+
+        {/* Track wrapper with mask */}
+        <div
+          style={{
+            position: "relative",
+            WebkitMaskImage: "linear-gradient(90deg, transparent 0%, black 8%, black 92%, transparent 100%)",
+            maskImage: "linear-gradient(90deg, transparent 0%, black 8%, black 92%, transparent 100%)",
+            padding: "0.5rem 0",
+          }}
+        >
+          {/* Scrolling track */}
+          <div
+            style={{
+              display: "flex",
+              gap: "4rem",
+              animation: isVisible ? "scroll-clients 40s linear infinite" : "none",
+              width: "max-content",
+            }}
+          >
+            {duplicatedClients.map((client, index) => (
+              <img
+                key={`${client.name}-${index}`}
+                src={client.logo}
+                alt={client.name}
+                style={{
+                  height: "28px",
+                  opacity: 0.6,
+                  filter: "grayscale(1) brightness(1.8)",
+                  transition: "all 0.5s cubic-bezier(0.4, 0, 0.2, 1)",
+                  cursor: "pointer",
+                  flexShrink: 0,
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.opacity = "1";
+                  e.currentTarget.style.filter = "grayscale(0) brightness(1)";
+                  e.currentTarget.style.transform = "scale(1.1) translateY(-2px)";
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.opacity = "0.6";
+                  e.currentTarget.style.filter = "grayscale(1) brightness(1.8)";
+                  e.currentTarget.style.transform = "scale(1) translateY(0)";
+                }}
+              />
+            ))}
+          </div>
         </div>
       </div>
 

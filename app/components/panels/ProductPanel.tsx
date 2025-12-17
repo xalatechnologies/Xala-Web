@@ -1,6 +1,6 @@
-import type { ReactNode } from "react";
+import { useState, useEffect, type ReactNode } from "react";
 
-interface CoreValue {
+interface ValueContent {
   icon: ReactNode;
   value: string;
   label: string;
@@ -42,29 +42,241 @@ const VisionIcon = () => (
   </svg>
 );
 
-const coreValues: CoreValue[] = [
+const UptimeIcon = () => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6">
+    <path d="M22 12h-4l-3 9L9 3l-3 9H2" />
+  </svg>
+);
+
+const SystemsIcon = () => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6">
+    <rect x="2" y="3" width="20" height="14" rx="2" ry="2" />
+    <line x1="8" y1="21" x2="16" y2="21" />
+    <line x1="12" y1="17" x2="12" y2="21" />
+  </svg>
+);
+
+const GlobalIcon = () => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6">
+    <circle cx="12" cy="12" r="10" />
+    <line x1="2" y1="12" x2="22" y2="12" />
+    <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
+  </svg>
+);
+
+const AgentIcon = () => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6">
+    <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
+  </svg>
+);
+
+const ChainIcon = () => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6">
+    <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
+    <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
+  </svg>
+);
+
+// Social media icons
+const LinkedInIcon = () => (
+  <svg viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
+    <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+  </svg>
+);
+
+const GitHubIcon = () => (
+  <svg viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
+    <path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/>
+  </svg>
+);
+
+const TwitterIcon = () => (
+  <svg viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
+    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+  </svg>
+);
+
+// Phase content definitions for right panel
+const phases: { headerLabel: string; footerLabel: string; values: ValueContent[] }[] = [
+  // Phase 0: Why Xala (0-30%)
   {
-    icon: <ExperienceIcon />,
-    value: "20+",
-    label: "Years Experience",
-    description: "Building enterprise-grade systems across industries",
-    accentColor: "#5DE67A",
+    headerLabel: "Why Xala",
+    footerLabel: "Proven track record",
+    values: [
+      {
+        icon: <ExperienceIcon />,
+        value: "20+",
+        label: "Years Experience",
+        description: "Building enterprise-grade systems",
+        accentColor: "#5DE67A",
+      },
+      {
+        icon: <TrustIcon />,
+        value: "50+",
+        label: "Trusted Clients",
+        description: "Enterprise & public sector worldwide",
+        accentColor: "#00d4ff",
+      },
+      {
+        icon: <VisionIcon />,
+        value: "Future",
+        label: "Thinking Vision",
+        description: "AI-first with long-term focus",
+        accentColor: "#D4A853",
+      },
+    ],
   },
+  // Phase 1: Delivery Stats (30-45%)
   {
-    icon: <TrustIcon />,
-    value: "50+",
-    label: "Trusted Clients",
-    description: "Enterprise & public sector organizations worldwide",
-    accentColor: "#00d4ff",
+    headerLabel: "Our Delivery",
+    footerLabel: "Measurable results",
+    values: [
+      {
+        icon: <SystemsIcon />,
+        value: "100+",
+        label: "Systems Delivered",
+        description: "Platforms, APIs, integrations",
+        accentColor: "#5DE67A",
+      },
+      {
+        icon: <UptimeIcon />,
+        value: "99.9%",
+        label: "System Uptime",
+        description: "Production reliability",
+        accentColor: "#00d4ff",
+      },
+      {
+        icon: <GlobalIcon />,
+        value: "5",
+        label: "Countries",
+        description: "Clients across Nordic & EU",
+        accentColor: "#D4A853",
+      },
+    ],
   },
+  // Phase 2: Team Stats (45-60%)
   {
-    icon: <VisionIcon />,
-    value: "Future",
-    label: "Thinking Vision",
-    description: "AI-first approach with long-term infrastructure focus",
-    accentColor: "#D4A853",
+    headerLabel: "Team Power",
+    footerLabel: "Human + AI synergy",
+    values: [
+      {
+        icon: <ExperienceIcon />,
+        value: "15+",
+        label: "Core Team",
+        description: "Senior engineers & specialists",
+        accentColor: "#5DE67A",
+      },
+      {
+        icon: <AgentIcon />,
+        value: "40+",
+        label: "AI Agents",
+        description: "Autonomous development support",
+        accentColor: "#00d4ff",
+      },
+      {
+        icon: <TrustIcon />,
+        value: "24/7",
+        label: "Support",
+        description: "Enterprise-grade SLAs",
+        accentColor: "#D4A853",
+      },
+    ],
+  },
+  // Phase 3: NorChain Stats (60-75%)
+  {
+    headerLabel: "NorChain",
+    footerLabel: "Enterprise blockchain",
+    values: [
+      {
+        icon: <ChainIcon />,
+        value: "Web3",
+        label: "Infrastructure",
+        description: "Hybrid blockchain platform",
+        accentColor: "#5DE67A",
+      },
+      {
+        icon: <TrustIcon />,
+        value: "GDPR",
+        label: "Compliant",
+        description: "Nordic regulatory standards",
+        accentColor: "#00d4ff",
+      },
+      {
+        icon: <GlobalIcon />,
+        value: "Multi",
+        label: "Chain Ready",
+        description: "Ethereum, Polygon, custom",
+        accentColor: "#D4A853",
+      },
+    ],
+  },
+  // Phase 4: Technology (70-84%)
+  {
+    headerLabel: "Technology",
+    footerLabel: "Modern & proven",
+    values: [
+      {
+        icon: <AgentIcon />,
+        value: "GPT-4",
+        label: "AI Powered",
+        description: "Latest LLM integration",
+        accentColor: "#5DE67A",
+      },
+      {
+        icon: <SystemsIcon />,
+        value: "Cloud",
+        label: "Native",
+        description: "AWS, Azure, GCP ready",
+        accentColor: "#00d4ff",
+      },
+      {
+        icon: <TrustIcon />,
+        value: "ISO",
+        label: "27001 Ready",
+        description: "Security certified",
+        accentColor: "#D4A853",
+      },
+    ],
+  },
+  // Phase 5: Social & Connect (84-100%)
+  {
+    headerLabel: "Connect",
+    footerLabel: "Follow our journey",
+    values: [
+      {
+        icon: <LinkedInIcon />,
+        value: "LinkedIn",
+        label: "Professional Network",
+        description: "Company updates & insights",
+        accentColor: "#0A66C2",
+      },
+      {
+        icon: <GitHubIcon />,
+        value: "GitHub",
+        label: "Open Source",
+        description: "Our public repositories",
+        accentColor: "#ffffff",
+      },
+      {
+        icon: <TwitterIcon />,
+        value: "X / Twitter",
+        label: "Latest News",
+        description: "Tech insights & announcements",
+        accentColor: "#5DE67A",
+      },
+    ],
   },
 ];
+
+// Get current phase based on progress - evenly distributed
+function getCurrentPhase(progress: number): number {
+  if (progress < 0.28) return 0;  // Why Xala
+  if (progress < 0.42) return 1;  // Our Delivery
+  if (progress < 0.56) return 2;  // Team Power
+  if (progress < 0.70) return 3;  // NorChain
+  if (progress < 0.84) return 4;  // Technology
+  return 5;                        // Social Connect
+}
 
 // Shared panel dimensions - must match ServicePanel
 const PANEL_WIDTH = "340px";
@@ -76,6 +288,28 @@ export function ProductPanel({
   isVisible,
   progress = 0,
 }: ProductPanelProps) {
+  const currentPhase = getCurrentPhase(progress);
+  const [displayPhase, setDisplayPhase] = useState(currentPhase);
+  const [isTransitioning, setIsTransitioning] = useState(false);
+
+  // Smooth phase transition with slower timing
+  useEffect(() => {
+    if (currentPhase !== displayPhase) {
+      setIsTransitioning(true);
+      const timer = setTimeout(() => {
+        setDisplayPhase(currentPhase);
+        setIsTransitioning(false);
+      }, 500); // Slower transition for smoothness
+      return () => clearTimeout(timer);
+    }
+  }, [currentPhase, displayPhase]);
+
+  const phaseData = phases[displayPhase];
+  // Social/Connect phase (5) stays visible permanently once reached
+  const isContactPhase = displayPhase === 5;
+  const contentOpacity = isVisible && (!isTransitioning || isContactPhase) ? 1 : 0;
+  const contentTransform = isVisible && (!isTransitioning || isContactPhase) ? "translateX(0)" : "translateX(15px)";
+
   return (
     <div
       style={{
@@ -120,151 +354,133 @@ export function ProductPanel({
             whiteSpace: "nowrap",
           }}
         >
-          Why Xala
+          {phaseData.headerLabel}
         </span>
       </div>
 
-      {/* Core Value Cards - Flex grow to fill space evenly */}
+      {/* Cards Container - animates as one unit with smooth phase transitions */}
       <div
         style={{
           flex: 1,
           display: "flex",
           flexDirection: "column",
           gap: "0.75rem",
+          minHeight: 0,
+          opacity: contentOpacity,
+          transform: contentTransform,
+          transition: "all 0.8s cubic-bezier(0.25, 0.1, 0.25, 1)",
         }}
       >
-        {coreValues.map((value, index) => {
-          const threshold = 0.08 + index * 0.05;
-          const cardVisible = isVisible && progress > threshold;
-
-          return (
-            <div
-              key={value.label}
-              style={{
-                flex: 1,
-                position: "relative",
-                background: "linear-gradient(135deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02))",
-                border: "1px solid rgba(255,255,255,0.12)",
-                borderRadius: "14px",
-                padding: "1rem",
-                opacity: cardVisible ? 1 : 0,
-                transform: cardVisible ? "translateX(0)" : "translateX(40px)",
-                transition: `all 0.7s cubic-bezier(0.4, 0, 0.2, 1) ${index * 0.1}s`,
-                overflow: "hidden",
-                backdropFilter: "blur(12px)",
-                cursor: "pointer",
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "center",
-              }}
-              onMouseEnter={(e) => {
-                const el = e.currentTarget;
-                el.style.borderColor = `${value.accentColor}50`;
-                el.style.background = `linear-gradient(135deg, ${value.accentColor}15, rgba(255,255,255,0.03))`;
-                el.style.boxShadow = `0 15px 40px rgba(0,0,0,0.4), 0 0 30px ${value.accentColor}20`;
-                el.style.transform = "translateX(-6px)";
-              }}
-              onMouseLeave={(e) => {
-                const el = e.currentTarget;
-                el.style.borderColor = "rgba(255,255,255,0.12)";
-                el.style.background = "linear-gradient(135deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02))";
-                el.style.boxShadow = "none";
-                el.style.transform = "translateX(0)";
-              }}
-            >
-              {/* Top accent line */}
+        {phaseData.values.map((value, index) => (
+          <div
+            key={`${currentPhase}-${index}`}
+            style={{
+              flex: 1,
+              position: "relative",
+              background: "linear-gradient(135deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02))",
+              border: "1px solid rgba(255,255,255,0.1)",
+              borderRadius: "14px",
+              padding: "1rem",
+              overflow: "hidden",
+              backdropFilter: "blur(10px)",
+              cursor: "pointer",
+              display: "flex",
+              flexDirection: "column",
+              transition: "all 0.3s ease",
+            }}
+            onMouseEnter={(e) => {
+              const el = e.currentTarget;
+              el.style.borderColor = `${value.accentColor}4D`;
+              el.style.background = `linear-gradient(135deg, ${value.accentColor}14, rgba(255,255,255,0.03))`;
+              el.style.boxShadow = `0 20px 40px rgba(0,0,0,0.3), 0 0 30px ${value.accentColor}1A`;
+              el.style.transform = "translateX(-4px)";
+            }}
+            onMouseLeave={(e) => {
+              const el = e.currentTarget;
+              el.style.borderColor = "rgba(255,255,255,0.1)";
+              el.style.background = "linear-gradient(135deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02))";
+              el.style.boxShadow = "none";
+              el.style.transform = "translateX(0)";
+            }}
+          >
+            {/* Icon & Value Row */}
+            <div style={{ display: "flex", alignItems: "center", gap: "0.75rem", marginBottom: "0.5rem" }}>
               <div
                 style={{
-                  position: "absolute",
-                  top: 0,
-                  left: "0.75rem",
-                  right: "0.75rem",
-                  height: "2px",
-                  background: `linear-gradient(90deg, transparent, ${value.accentColor}, transparent)`,
-                  opacity: 0.6,
+                  width: "2.25rem",
+                  height: "2.25rem",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  background: `linear-gradient(135deg, ${value.accentColor}33, ${value.accentColor}1A)`,
+                  border: `1px solid ${value.accentColor}4D`,
+                  borderRadius: "8px",
+                  color: value.accentColor,
+                  flexShrink: 0,
                 }}
-              />
-
-              {/* Content */}
-              <div style={{ display: "flex", alignItems: "center", gap: "0.75rem" }}>
-                {/* Icon */}
+              >
+                {value.icon}
+              </div>
+              <div>
                 <div
                   style={{
-                    width: "42px",
-                    height: "42px",
-                    borderRadius: "10px",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    background: `linear-gradient(135deg, ${value.accentColor}25, ${value.accentColor}08)`,
-                    border: `1px solid ${value.accentColor}40`,
+                    fontFamily: "'Outfit', sans-serif",
+                    fontSize: "1.5rem",
+                    fontWeight: 700,
                     color: value.accentColor,
-                    flexShrink: 0,
+                    lineHeight: 1,
                   }}
                 >
-                  {value.icon}
+                  {value.value}
                 </div>
-
-                {/* Text Content */}
-                <div style={{ flex: 1 }}>
-                  {/* Value */}
-                  <div
-                    style={{
-                      fontFamily: "'Outfit', sans-serif",
-                      fontSize: "1.75rem",
-                      fontWeight: 700,
-                      color: value.accentColor,
-                      lineHeight: 1,
-                      marginBottom: "0.2rem",
-                    }}
-                  >
-                    {value.value}
-                  </div>
-                  
-                  {/* Label */}
-                  <div
-                    style={{
-                      fontFamily: "'Outfit', sans-serif",
-                      fontSize: "0.9375rem",
-                      fontWeight: 600,
-                      color: "#ffffff",
-                      marginBottom: "0.3rem",
-                    }}
-                  >
-                    {value.label}
-                  </div>
-
-                  {/* Description */}
-                  <p
-                    style={{
-                      fontFamily: "'Manrope', sans-serif",
-                      fontSize: "0.8125rem",
-                      color: "rgba(255,255,255,0.55)",
-                      lineHeight: 1.45,
-                      margin: 0,
-                    }}
-                  >
-                    {value.description}
-                  </p>
+                <div
+                  style={{
+                    fontFamily: "'Outfit', sans-serif",
+                    fontSize: "0.875rem",
+                    fontWeight: 600,
+                    color: "#ffffff",
+                    marginTop: "0.15rem",
+                  }}
+                >
+                  {value.label}
                 </div>
               </div>
             </div>
-          );
-        })}
+
+            {/* Description */}
+            <p
+              style={{
+                fontFamily: "'Manrope', sans-serif",
+                fontSize: "0.8125rem",
+                color: "rgba(255,255,255,0.55)",
+                lineHeight: 1.4,
+                marginTop: "auto",
+              }}
+            >
+              {value.description}
+            </p>
+          </div>
+        ))}
       </div>
 
-      {/* Bottom tagline */}
+      {/* Panel Footer */}
       <div
         style={{
           display: "flex",
           alignItems: "center",
-          justifyContent: "center",
-          opacity: isVisible && progress > 0.2 ? 1 : 0,
-          transform: isVisible && progress > 0.2 ? "translateY(0)" : "translateY(8px)",
-          transition: "all 0.6s ease 0.4s",
+          gap: "0.75rem",
+          opacity: isVisible ? 1 : 0,
+          transition: "opacity 0.6s ease 0.4s",
           flexShrink: 0,
         }}
       >
+        <div
+          style={{
+            flex: 1,
+            height: "1px",
+            background: "linear-gradient(270deg, rgba(255,255,255,0.15), transparent)",
+          }}
+        />
         <span
           style={{
             fontFamily: "'Manrope', sans-serif",
@@ -273,9 +489,10 @@ export function ProductPanel({
             letterSpacing: "0.12em",
             textTransform: "uppercase",
             color: "rgba(255,255,255,0.35)",
+            whiteSpace: "nowrap",
           }}
         >
-          Proven track record
+          {phaseData.footerLabel}
         </span>
       </div>
     </div>
