@@ -2,13 +2,20 @@
 
 import type { MetaFunction } from "@remix-run/node";
 import { useRef, useState, useEffect } from "react";
-import { useScrollProgress, useFramePreloader, useScrollThreshold } from "~/hooks";
+import { useScrollProgress, useFramePreloader } from "~/hooks";
 import { Navigation, BackgroundSystem, ProgressBar } from "~/components/layout";
 import { Loader } from "~/components/Loader";
 import { HeroSection } from "~/components/hero";
-import { ServicePanel, ProductPanel } from "~/components/panels";
-import { TechBadgesLayer } from "~/components/floating";
-import { ClientStrip } from "~/components/clients";
+import {
+  WhatWeDeliver,
+  TrackRecord,
+  ClientsSection,
+  NorChainSection,
+  SaaSProducts,
+  AIAutomation,
+  TechStack,
+  Footer,
+} from "~/components/sections";
 
 export const meta: MetaFunction = () => {
   return [
@@ -16,18 +23,57 @@ export const meta: MetaFunction = () => {
     {
       name: "description",
       content:
-        "Enterprise-grade software solutions, cloud architecture, and AI-powered products. Transform your business with cutting-edge technology.",
+        "Engineering-led technology company specializing in AI automation, SaaS platforms, and blockchain infrastructure. Enterprise-grade solutions built for scale.",
     },
     { name: "viewport", content: "width=device-width, initial-scale=1" },
-    { property: "og:title", content: "Xala Technologies" },
-    { property: "og:description", content: "Architects of Innovation" },
+    { property: "og:title", content: "Xala Technologies - Architects of Innovation" },
+    {
+      property: "og:description",
+      content:
+        "AI Automation, SaaS Solutions, and Blockchain Infrastructure. Enterprise-grade technology built for scale.",
+    },
     { property: "og:type", content: "website" },
+    { property: "og:url", content: "https://xala.no" },
     { name: "theme-color", content: "#030305" },
+    { name: "robots", content: "index, follow" },
   ];
 };
 
 const FRAME_COUNT = 192;
 const FRAME_PATH = "/assets/frames";
+
+// Hook for section visibility based on scroll position
+function useSectionVisibility() {
+  const [visibleSections, setVisibleSections] = useState<Record<string, boolean>>({});
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          const id = entry.target.id;
+          if (id) {
+            setVisibleSections((prev) => ({
+              ...prev,
+              [id]: entry.isIntersecting,
+            }));
+          }
+        });
+      },
+      {
+        threshold: 0.15,
+        rootMargin: "-50px 0px",
+      }
+    );
+
+    // Observe all sections
+    const sections = document.querySelectorAll("section[id]");
+    sections.forEach((section) => observer.observe(section));
+
+    return () => observer.disconnect();
+  }, []);
+
+  return visibleSections;
+}
 
 export default function Index() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -45,16 +91,14 @@ export default function Index() {
     enabled: isClient,
   });
 
-  // Track scroll progress
+  // Track scroll progress for hero
   const { progress: scrollProgress } = useScrollProgress({
     containerRef,
     eased: true,
   });
 
-  // Visibility thresholds
-  const showPanels = useScrollThreshold(scrollProgress, 0.3);
-  const showTechBadges = useScrollThreshold(scrollProgress, 0.4);
-  const showClients = useScrollThreshold(scrollProgress, 0.6);
+  // Track section visibility
+  const visibleSections = useSectionVisibility();
 
   // Show loader while frames are loading
   if (isLoading || !isClient) {
@@ -72,21 +116,35 @@ export default function Index() {
       {/* Progress Bar */}
       <ProgressBar progress={scrollProgress} />
 
-      {/* Hero Section */}
+      {/* Hero Section - Scroll-driven animation */}
       <HeroSection frames={frames} frameCount={FRAME_COUNT} />
 
-      {/* Side Panels */}
-      <ServicePanel isVisible={showPanels} />
-      <ProductPanel isVisible={showPanels} />
+      {/* Main Content Sections */}
+      <main>
+        {/* 1. What We Actually Deliver - Three Pillars */}
+        <WhatWeDeliver isVisible={visibleSections["what-we-deliver"] ?? false} />
 
-      {/* Tech Badges */}
-      <TechBadgesLayer isVisible={showTechBadges} />
+        {/* 2. Proven Track Record */}
+        <TrackRecord isVisible={visibleSections["track-record"] ?? false} />
 
-      {/* Client Strip */}
-      <ClientStrip isVisible={showClients} />
+        {/* 3. Clients & Partnerships */}
+        <ClientsSection isVisible={visibleSections["clients"] ?? false} />
 
-      {/* Spacer for scroll */}
-      <div className="h-[100vh]" aria-hidden="true" />
+        {/* 4. NorChain - Flagship Blockchain Platform */}
+        <NorChainSection isVisible={visibleSections["norchain"] ?? false} />
+
+        {/* 5. SaaS Products & Platforms */}
+        <SaaSProducts isVisible={visibleSections["saas-products"] ?? false} />
+
+        {/* 6. AI Automation - Deep Dive */}
+        <AIAutomation isVisible={visibleSections["ai-automation"] ?? false} />
+
+        {/* 7. Technology Stack */}
+        <TechStack isVisible={visibleSections["tech-stack"] ?? false} />
+      </main>
+
+      {/* Footer */}
+      <Footer />
     </div>
   );
 }

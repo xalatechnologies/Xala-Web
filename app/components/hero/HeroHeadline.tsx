@@ -38,7 +38,7 @@ export function HeroHeadline({ progress }: HeroHeadlineProps) {
         >
           Future of Technology
         </strong>{" "}
-        — Engineered by Xala.
+        — Engineered by Xala Technologies.
       </h1>
     </div>
   );
