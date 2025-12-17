@@ -18,14 +18,14 @@ export function HeroLogo({ progress }: HeroLogoProps) {
     <div
       style={{
         position: "absolute",
-        top: "8%",
+        top: "5%",
         left: "50%",
         transform: `translateX(-50%) scale(${scale})`,
         zIndex: 20,
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
-        gap: "1.25rem",
+        gap: "0.75rem",
         opacity,
         pointerEvents: opacity > 0.3 ? "auto" : "none",
       }}
@@ -34,8 +34,8 @@ export function HeroLogo({ progress }: HeroLogoProps) {
         src="/logo/icon.png"
         alt="Xala"
         style={{
-          width: "100px",
-          height: "100px",
+          width: "80px",
+          height: "80px",
           filter: "drop-shadow(0 0 30px rgba(93,230,122,0.5))",
         }}
       />

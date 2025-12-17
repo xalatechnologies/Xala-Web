@@ -69,7 +69,7 @@ export function CanvasAnimation({ frames, frameIndex, glowActive = false }: Canv
       ref={containerRef}
       style={{
         position: "absolute",
-        top: "50%",
+        top: "45%",
         left: "50%",
         transform: "translate(-50%, -50%)",
         zIndex: 15,

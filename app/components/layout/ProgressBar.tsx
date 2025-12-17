@@ -176,34 +176,6 @@ export function ProgressBar({ progress }: ProgressBarProps) {
         </div>
       </div>
 
-      {/* Bottom border with progress indicator */}
-      <div
-        style={{
-          position: "fixed",
-          top: "56px",
-          left: 0,
-          right: 0,
-          height: "2px",
-          zIndex: 99,
-          background: "rgba(255,255,255,0.05)",
-          opacity: showIndicator ? 1 : 0,
-          transition: "opacity 0.4s ease",
-        }}
-      >
-        {/* Progress fill */}
-        <div
-          style={{
-            position: "absolute",
-            top: 0,
-            left: 0,
-            height: "100%",
-            width: `${progress * 100}%`,
-            background: "linear-gradient(90deg, #5DE67A, #00d4ff)",
-            boxShadow: "0 0 10px rgba(93,230,122,0.5)",
-            transition: "width 0.1s ease-out",
-          }}
-        />
-      </div>
 
       <style>{`
         @keyframes pulse-dot {

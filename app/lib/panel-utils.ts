@@ -8,11 +8,11 @@ import { PHASE_THRESHOLDS } from "~/data/panels";
 export const PANEL_CONFIG = {
   width: "340px",
   edge: "1.5rem", // Comfortable margin from edges
-  top: "15%",
-  bottom: "12%",
+  top: "9%",
+  bottom: "14%",
   gap: "0.75rem",
   cardBorderRadius: "14px",
-  cardPadding: "1rem",
+  cardPadding: "0.875rem",
   zIndex: 30,
 } as const;
 
@@ -42,7 +42,8 @@ export function isContactPhase(phase: number): boolean {
 // Generate glassmorphism card styles
 export function getCardBaseStyles(): CSSProperties {
   return {
-    flex: 1,
+    flex: "1 1 0",
+    maxHeight: "180px", // Limit card height
     position: "relative",
     background: "linear-gradient(135deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02))",
     border: "1px solid rgba(255,255,255,0.1)",
