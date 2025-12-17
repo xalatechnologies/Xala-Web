@@ -1,0 +1,1754 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Xala Technologies - Revolutionising the Future</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    @keyframes shimmer {
+      0% { background-position: -200% 0; }
+      100% { background-position: 200% 0; }
+    }
+
+    @keyframes pulse-glow {
+      0%, 100% { opacity: 0.5; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.05); }
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-20px); }
+    }
+
+    @keyframes rotate-slow {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    @keyframes beam-scan {
+      0% { transform: translateY(-100%) scaleY(0.5); opacity: 0; }
+      50% { transform: translateY(0%) scaleY(1); opacity: 0.3; }
+      100% { transform: translateY(100%) scaleY(0.5); opacity: 0; }
+    }
+
+    @keyframes data-stream {
+      0% { background-position: 0 0; }
+      100% { background-position: 0 100px; }
+    }
+
+    @keyframes border-flow {
+      0% { background-position: 0% 0%; }
+      100% { background-position: 200% 0%; }
+    }
+
+    @keyframes glow-pulse {
+      0%, 100% { box-shadow: 0 0 20px var(--glow-color), 0 0 40px var(--glow-color); }
+      50% { box-shadow: 0 0 40px var(--glow-color), 0 0 80px var(--glow-color); }
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      /* Xala Brand Colors */
+      --xala-green: #5DE67A;
+      --xala-green-bright: #7AFF97;
+      --xala-green-dark: #2EB65B;
+      --xala-green-glow: rgba(93, 230, 122, 0.5);
+
+      /* Extended Palette */
+      --color-bg: #030305;
+      --color-bg-elevated: #080810;
+      --color-surface: rgba(255, 255, 255, 0.02);
+      --color-surface-hover: rgba(93, 230, 122, 0.05);
+      --color-border: rgba(255, 255, 255, 0.06);
+      --color-border-hover: rgba(93, 230, 122, 0.2);
+      --color-text: #ffffff;
+      --color-text-secondary: rgba(255, 255, 255, 0.8);
+      --color-text-muted: rgba(255, 255, 255, 0.5);
+      --color-text-dim: rgba(255, 255, 255, 0.25);
+
+      /* Accent Colors */
+      --color-cyan: #00d4ff;
+      --color-blue: #3b82f6;
+      --color-purple: #a855f7;
+      --color-gold: #f59e0b;
+
+      /* Fonts */
+      --font-display: 'Space Grotesk', sans-serif;
+      --font-body: 'Inter', sans-serif;
+
+      /* Layout */
+      --nav-height: 80px;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: var(--color-bg);
+      color: var(--color-text);
+      font-family: var(--font-body);
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ==================== NAVIGATION ==================== */
+    .nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: var(--nav-height);
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 4rem;
+      background: transparent;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .nav::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(3, 3, 5, 0.8);
+      backdrop-filter: blur(20px);
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+
+    .nav::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--color-border), transparent);
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+
+    .nav.scrolled::before,
+    .nav.scrolled::after {
+      opacity: 1;
+    }
+
+    .nav-inner {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      text-decoration: none;
+    }
+
+    .nav-logo-img {
+      height: 28px;
+      width: auto;
+      filter: drop-shadow(0 0 10px var(--xala-green-glow));
+      transition: filter 0.3s ease;
+    }
+
+    .nav-logo:hover .nav-logo-img {
+      filter: drop-shadow(0 0 20px var(--xala-green-glow));
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+    }
+
+    .nav-link {
+      position: relative;
+      padding: 0.75rem 1.25rem;
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: var(--color-text-muted);
+      text-decoration: none;
+      border-radius: 8px;
+      transition: all 0.2s ease;
+      overflow: hidden;
+    }
+
+    .nav-link::before {
+      content: '';
+      position: absolute;
+      bottom: 0.5rem;
+      left: 50%;
+      transform: translateX(-50%) scaleX(0);
+      width: 4px;
+      height: 4px;
+      background: var(--xala-green);
+      border-radius: 50%;
+      transition: transform 0.2s ease;
+    }
+
+    .nav-link:hover {
+      color: var(--color-text);
+    }
+
+    .nav-link:hover::before {
+      transform: translateX(-50%) scaleX(1);
+    }
+
+    .nav-link.active {
+      color: var(--xala-green);
+    }
+
+    .nav-link.active::before {
+      transform: translateX(-50%) scaleX(1);
+      box-shadow: 0 0 10px var(--xala-green-glow);
+    }
+
+    .nav-cta {
+      position: relative;
+      margin-left: 1.5rem;
+      padding: 0.75rem 1.5rem;
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--color-bg);
+      background: linear-gradient(135deg, var(--xala-green), var(--xala-green-bright));
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      overflow: hidden;
+    }
+
+    .nav-cta::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, var(--xala-green-bright), var(--xala-green));
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .nav-cta:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px var(--xala-green-glow);
+    }
+
+    .nav-cta:hover::before {
+      opacity: 1;
+    }
+
+    .nav-cta span {
+      position: relative;
+      z-index: 1;
+    }
+
+    .nav-menu-btn {
+      display: none;
+      width: 44px;
+      height: 44px;
+      align-items: center;
+      justify-content: center;
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: 10px;
+      cursor: pointer;
+    }
+
+    /* ==================== BACKGROUND SYSTEM ==================== */
+    .bg-system {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      overflow: hidden;
+    }
+
+    .bg-base {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 100% 70% at 50% 100%, rgba(93, 230, 122, 0.03) 0%, transparent 50%),
+        radial-gradient(ellipse 80% 50% at 20% 20%, rgba(0, 212, 255, 0.02) 0%, transparent 50%),
+        radial-gradient(ellipse 60% 40% at 80% 80%, rgba(168, 85, 247, 0.02) 0%, transparent 50%),
+        var(--color-bg);
+    }
+
+    .bg-grid {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(93, 230, 122, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(93, 230, 122, 0.03) 1px, transparent 1px);
+      background-size: 60px 60px;
+      mask-image: radial-gradient(ellipse 70% 50% at 50% 50%, black 0%, transparent 100%);
+    }
+
+    .bg-dots {
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(rgba(93, 230, 122, 0.15) 1px, transparent 1px);
+      background-size: 30px 30px;
+      mask-image: radial-gradient(ellipse 40% 30% at 50% 50%, black 0%, transparent 100%);
+      opacity: 0.5;
+    }
+
+    .bg-glow-orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(100px);
+      opacity: 0;
+      transition: all 2s ease;
+      will-change: opacity, transform;
+    }
+
+    .bg-glow-orb.visible {
+      opacity: 1;
+    }
+
+    .glow-1 {
+      width: 800px;
+      height: 800px;
+      background: radial-gradient(circle, rgba(93, 230, 122, 0.12) 0%, transparent 70%);
+      top: 20%;
+      left: -20%;
+      animation: pulse-glow 8s ease-in-out infinite;
+    }
+
+    .glow-2 {
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(0, 212, 255, 0.08) 0%, transparent 70%);
+      top: 10%;
+      right: -15%;
+      animation: pulse-glow 10s ease-in-out infinite reverse;
+    }
+
+    .glow-3 {
+      width: 1000px;
+      height: 500px;
+      background: radial-gradient(ellipse, rgba(93, 230, 122, 0.06) 0%, transparent 60%);
+      bottom: -10%;
+      left: 50%;
+      transform: translateX(-50%);
+      animation: pulse-glow 12s ease-in-out infinite;
+    }
+
+    .bg-beam {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 2px;
+      height: 100%;
+      background: linear-gradient(to bottom, transparent, var(--xala-green), transparent);
+      opacity: 0;
+      animation: beam-scan 8s ease-in-out infinite;
+      animation-delay: 2s;
+    }
+
+    .bg-beam:nth-child(2) {
+      left: 30%;
+      animation-delay: 4s;
+    }
+
+    .bg-beam:nth-child(3) {
+      left: 70%;
+      animation-delay: 6s;
+    }
+
+    .bg-noise {
+      position: absolute;
+      inset: 0;
+      opacity: 0.015;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    }
+
+    /* ==================== HERO SECTION ==================== */
+    .hero {
+      position: relative;
+      height: 500vh;
+      z-index: 10;
+    }
+
+    .hero-sticky {
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .hero-stage {
+      position: relative;
+      width: 100%;
+      height: 100%;
+    }
+
+    /* Floor/Ground effect */
+    .hero-floor {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 50%;
+      background: linear-gradient(to top,
+        rgba(0, 0, 0, 0.9) 0%,
+        rgba(0, 0, 0, 0.5) 40%,
+        transparent 100%
+      );
+      pointer-events: none;
+      z-index: 5;
+    }
+
+    /* Radial spotlight */
+    .hero-spotlight {
+      position: absolute;
+      top: 20%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 150%;
+      height: 100%;
+      background: radial-gradient(ellipse 40% 60% at 50% 0%,
+        rgba(93, 230, 122, 0.03) 0%,
+        transparent 70%
+      );
+      pointer-events: none;
+      z-index: 6;
+      opacity: 0;
+      transition: opacity 1.5s ease;
+    }
+
+    .hero-spotlight.visible {
+      opacity: 1;
+    }
+
+    /* Canvas container */
+    .hero-canvas-container {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 15;
+    }
+
+    /* Ambient glow behind canvas */
+    .hero-canvas-container::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 120%;
+      height: 120%;
+      background: radial-gradient(ellipse 50% 50% at 50% 50%,
+        rgba(93, 230, 122, 0.08) 0%,
+        rgba(93, 230, 122, 0.03) 30%,
+        transparent 70%
+      );
+      filter: blur(40px);
+      pointer-events: none;
+      z-index: -1;
+      opacity: 0;
+      transition: opacity 1.5s ease;
+    }
+
+    .hero-canvas-container.glow-active::before {
+      opacity: 1;
+    }
+
+    /* Reflection effect below canvas */
+    .hero-canvas-container::after {
+      content: '';
+      position: absolute;
+      bottom: -30%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80%;
+      height: 60%;
+      background: linear-gradient(to bottom,
+        rgba(93, 230, 122, 0.04) 0%,
+        transparent 100%
+      );
+      filter: blur(30px);
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 1.5s ease;
+    }
+
+    .hero-canvas-container.glow-active::after {
+      opacity: 0.6;
+    }
+
+    .hero-canvas {
+      display: block;
+      filter: drop-shadow(0 30px 80px rgba(0, 0, 0, 0.6)) drop-shadow(0 0 60px rgba(93, 230, 122, 0.12));
+      transition: filter 1s ease;
+    }
+
+    .hero-canvas-container.glow-active .hero-canvas {
+      filter: drop-shadow(0 30px 80px rgba(0, 0, 0, 0.6)) drop-shadow(0 0 100px rgba(93, 230, 122, 0.25));
+    }
+
+    /* Xala Logo Hero */
+    .hero-logo {
+      position: absolute;
+      top: 8%;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 20;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1.5rem;
+      transition: all 1s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .hero-logo-icon {
+      width: 120px;
+      height: 120px;
+      filter: drop-shadow(0 0 50px var(--xala-green-glow));
+      transition: all 0.8s ease;
+    }
+
+    .hero-logo-tagline {
+      font-family: var(--font-body);
+      font-size: 0.85rem;
+      font-weight: 500;
+      letter-spacing: 0.4em;
+      text-transform: uppercase;
+      color: var(--color-text-muted);
+      transition: all 0.6s ease;
+    }
+
+    /* Headline */
+    .hero-headline {
+      position: absolute;
+      top: 28%;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 25;
+      text-align: center;
+      max-width: 900px;
+      padding: 0 2rem;
+      transition: all 0.8s ease;
+    }
+
+    .hero-headline h1 {
+      font-family: var(--font-display);
+      font-size: clamp(1.1rem, 2.5vw, 1.8rem);
+      font-weight: 400;
+      line-height: 1.8;
+      color: var(--color-text-secondary);
+      text-shadow: 0 2px 20px rgba(0, 0, 0, 0.5);
+    }
+
+    .hero-headline h1 strong {
+      font-weight: 700;
+      background: linear-gradient(135deg, var(--xala-green-bright), var(--xala-green), var(--color-cyan), var(--xala-green-bright));
+      background-size: 300% 100%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: shimmer 6s linear infinite;
+      text-shadow: none;
+    }
+
+    /* Brand reveal */
+    .hero-brand {
+      position: absolute;
+      bottom: 12%;
+      left: 50%;
+      transform: translateX(-50%) translateY(40px);
+      z-index: 25;
+      opacity: 0;
+      transition: all 1s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .hero-brand.visible {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    .hero-brand-text {
+      font-family: var(--font-display);
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.5em;
+      text-transform: uppercase;
+      background: linear-gradient(90deg, var(--color-text-dim), var(--color-text-secondary), var(--color-text-dim));
+      background-size: 200% 100%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: shimmer 6s linear infinite;
+    }
+
+    /* ==================== SIDE PANELS ==================== */
+    .side-panel {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 30;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      width: 340px;
+    }
+
+    .side-panel-left { left: 2.5%; }
+    .side-panel-right { right: 2.5%; }
+
+    /* Panel Header */
+    .panel-header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 0.75rem;
+      opacity: 0;
+      transform: translateY(15px);
+      transition: all 0.6s ease;
+    }
+
+    .panel-header.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .panel-header-line {
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(90deg, var(--xala-green), transparent);
+    }
+
+    .panel-header-text {
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--xala-green);
+      white-space: nowrap;
+    }
+
+    .panel-header-line.reverse {
+      background: linear-gradient(270deg, var(--xala-green), transparent);
+    }
+
+    /* Futuristic Card */
+    .future-card {
+      position: relative;
+      background: linear-gradient(135deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02));
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 20px;
+      padding: 1.5rem;
+      opacity: 0;
+      transform: translateX(-40px);
+      transition: all 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+      overflow: hidden;
+      --glow-color: var(--xala-green-glow);
+      backdrop-filter: blur(10px);
+    }
+
+    .future-card.from-right {
+      transform: translateX(40px);
+    }
+
+    .future-card.visible {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    /* Animated border */
+    .future-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 20px;
+      padding: 1px;
+      background: linear-gradient(135deg, var(--xala-green), transparent 40%, transparent 60%, var(--color-cyan));
+      background-size: 200% 200%;
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      opacity: 0;
+      animation: border-flow 4s linear infinite paused;
+      transition: opacity 0.3s ease;
+    }
+
+    .future-card:hover::before {
+      opacity: 1;
+      animation-play-state: running;
+    }
+
+    /* Corner accents */
+    .future-card::after {
+      content: '';
+      position: absolute;
+      top: -1px;
+      left: 24px;
+      width: 50px;
+      height: 2px;
+      background: var(--xala-green);
+      box-shadow: 0 0 15px var(--xala-green-glow);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .future-card:hover::after {
+      opacity: 1;
+    }
+
+    .future-card:hover {
+      border-color: rgba(93, 230, 122, 0.3);
+      background: linear-gradient(135deg, rgba(93, 230, 122, 0.08), rgba(255,255,255,0.03));
+      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4), 0 0 40px rgba(93, 230, 122, 0.1);
+      transform: translateX(0) translateY(-4px);
+    }
+
+    .future-card.from-right:hover {
+      transform: translateX(0) translateY(-4px);
+    }
+
+    /* Service Card Content */
+    .service-card {
+      display: flex;
+      gap: 1.25rem;
+      align-items: flex-start;
+    }
+
+    .service-icon-wrap {
+      position: relative;
+      width: 56px;
+      height: 56px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      background: linear-gradient(135deg, rgba(93, 230, 122, 0.15), rgba(93, 230, 122, 0.05));
+      border: 1px solid rgba(93, 230, 122, 0.25);
+    }
+
+    .service-icon-wrap::before {
+      content: '';
+      position: absolute;
+      inset: -3px;
+      border-radius: 17px;
+      background: linear-gradient(135deg, var(--xala-green), transparent);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      z-index: -1;
+      filter: blur(10px);
+    }
+
+    .future-card:hover .service-icon-wrap::before {
+      opacity: 0.6;
+    }
+
+    .service-icon {
+      font-size: 1.5rem;
+    }
+
+    .service-content h3 {
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--color-text);
+      margin-bottom: 0.5rem;
+    }
+
+    .service-content p {
+      font-size: 0.85rem;
+      color: var(--color-text-muted);
+      line-height: 1.6;
+      margin-bottom: 0.75rem;
+    }
+
+    .service-tags {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    .service-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      padding: 0.35rem 0.75rem;
+      background: rgba(93, 230, 122, 0.1);
+      border: 1px solid rgba(93, 230, 122, 0.2);
+      border-radius: 6px;
+      font-size: 0.65rem;
+      font-weight: 600;
+      color: var(--xala-green);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    /* Product Card */
+    .product-card {
+      position: relative;
+    }
+
+    .product-status {
+      position: absolute;
+      top: 1.25rem;
+      right: 1.25rem;
+      padding: 0.4rem 0.85rem;
+      border-radius: 20px;
+      font-size: 0.65rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .product-status.live {
+      background: rgba(93, 230, 122, 0.15);
+      color: var(--xala-green);
+      border: 1px solid rgba(93, 230, 122, 0.3);
+      box-shadow: 0 0 20px rgba(93, 230, 122, 0.2);
+    }
+
+    .product-status.beta {
+      background: rgba(0, 212, 255, 0.12);
+      color: var(--color-cyan);
+      border: 1px solid rgba(0, 212, 255, 0.3);
+    }
+
+    .product-status.soon {
+      background: rgba(255, 255, 255, 0.05);
+      color: var(--color-text-muted);
+      border: 1px solid var(--color-border);
+    }
+
+    .product-name {
+      font-family: var(--font-display);
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--color-text);
+      margin-bottom: 0.5rem;
+    }
+
+    .product-desc {
+      font-size: 0.85rem;
+      color: var(--color-text-muted);
+      line-height: 1.6;
+      margin-bottom: 1rem;
+      padding-right: 70px;
+    }
+
+    .product-stack {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    .product-stack span {
+      padding: 0.35rem 0.75rem;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 8px;
+      font-size: 0.7rem;
+      font-weight: 500;
+      color: var(--color-text-secondary);
+    }
+
+    /* Certifications */
+    .cert-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0.6rem;
+      opacity: 0;
+      transform: translateY(10px);
+      transition: all 0.6s ease;
+    }
+
+    .cert-row.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .cert-badge {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem 0.5rem;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 12px;
+      transition: all 0.3s ease;
+      overflow: hidden;
+    }
+
+    .cert-badge::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 0;
+      height: 0;
+      background: radial-gradient(circle, var(--xala-green-glow), transparent);
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+      transition: all 0.4s ease;
+    }
+
+    .cert-badge:hover::before {
+      width: 100px;
+      height: 100px;
+    }
+
+    .cert-badge:hover {
+      border-color: var(--xala-green);
+      transform: translateY(-3px);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    }
+
+    .cert-badge .icon {
+      font-size: 1.3rem;
+      margin-bottom: 0.4rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .cert-badge .label {
+      font-size: 0.6rem;
+      font-weight: 700;
+      color: var(--color-text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ==================== FLOATING TECH ELEMENTS ==================== */
+    .floating-element {
+      position: absolute;
+      z-index: 20;
+      opacity: 0;
+      transition: all 1s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .floating-element.visible {
+      opacity: 1;
+    }
+
+    .tech-badge {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      padding: 0.6rem 1.1rem;
+      background: rgba(3, 3, 5, 0.8);
+      border: 1px solid var(--color-border);
+      border-radius: 30px;
+      backdrop-filter: blur(10px);
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: var(--color-text-muted);
+    }
+
+    .tech-badge-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--dot-color, var(--xala-green));
+      box-shadow: 0 0 12px var(--dot-color, var(--xala-green));
+    }
+
+    .tech-1 { top: 28%; left: 19%; --dot-color: var(--xala-green); animation: float 7s ease-in-out infinite; }
+    .tech-2 { top: 42%; left: 16%; --dot-color: var(--color-cyan); animation: float 8s ease-in-out infinite 0.5s; }
+    .tech-3 { top: 58%; left: 17%; --dot-color: var(--color-purple); animation: float 6s ease-in-out infinite 1s; }
+    .tech-4 { top: 72%; left: 20%; --dot-color: var(--color-blue); animation: float 9s ease-in-out infinite 1.5s; }
+    .tech-5 { top: 26%; right: 19%; --dot-color: var(--color-gold); animation: float 8s ease-in-out infinite; }
+    .tech-6 { top: 40%; right: 15%; --dot-color: var(--xala-green); animation: float 7s ease-in-out infinite 0.5s; }
+    .tech-7 { top: 56%; right: 18%; --dot-color: var(--color-cyan); animation: float 9s ease-in-out infinite 1s; }
+    .tech-8 { top: 70%; right: 21%; --dot-color: var(--color-purple); animation: float 6s ease-in-out infinite 1.5s; }
+
+    /* ==================== CLIENT STRIP ==================== */
+    .client-strip {
+      position: absolute;
+      bottom: 4%;
+      left: 0;
+      right: 0;
+      z-index: 20;
+      overflow: hidden;
+      opacity: 0;
+      transition: opacity 1s ease;
+    }
+
+    .client-strip.visible {
+      opacity: 1;
+    }
+
+    .client-strip-label {
+      text-align: center;
+      margin-bottom: 1.5rem;
+      opacity: 0;
+      transform: translateY(10px);
+      transition: all 0.6s ease 0.3s;
+    }
+
+    .client-strip.visible .client-strip-label {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .client-strip-label span {
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--color-text-dim);
+      padding: 0.5rem 1.5rem;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid var(--color-border);
+      border-radius: 30px;
+    }
+
+    .client-track-wrapper {
+      position: relative;
+      mask-image: linear-gradient(90deg, transparent 0%, black 10%, black 90%, transparent 100%);
+      padding: 1rem 0;
+    }
+
+    .client-track {
+      display: flex;
+      gap: 4rem;
+      animation: scroll-clients 45s linear infinite;
+      will-change: transform;
+    }
+
+    .client-strip:hover .client-track {
+      animation-play-state: paused;
+    }
+
+    .client-logo {
+      position: relative;
+      height: 22px;
+      opacity: 0.25;
+      filter: grayscale(1) brightness(2);
+      transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+      transform-style: preserve-3d;
+      perspective: 500px;
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+
+    .client-logo:hover {
+      opacity: 1;
+      filter: grayscale(0) brightness(1);
+      transform: scale(1.15) translateY(-4px) rotateX(5deg);
+    }
+
+    .client-logo::after {
+      content: '';
+      position: absolute;
+      bottom: -8px;
+      left: 50%;
+      transform: translateX(-50%) scaleX(0);
+      width: 100%;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--xala-green), transparent);
+      border-radius: 2px;
+      transition: transform 0.4s ease;
+    }
+
+    .client-logo:hover::after {
+      transform: translateX(-50%) scaleX(0.8);
+      box-shadow: 0 0 15px var(--xala-green-glow);
+    }
+
+    /* Staggered entrance animation */
+    @keyframes client-reveal {
+      0% {
+        opacity: 0;
+        transform: translateY(20px) scale(0.8);
+        filter: grayscale(1) brightness(2) blur(4px);
+      }
+      100% {
+        opacity: 0.25;
+        transform: translateY(0) scale(1);
+        filter: grayscale(1) brightness(2) blur(0);
+      }
+    }
+
+    .client-strip.visible .client-logo {
+      animation: client-reveal 0.8s ease forwards;
+    }
+
+    .client-strip.visible .client-logo:nth-child(1) { animation-delay: 0.1s; }
+    .client-strip.visible .client-logo:nth-child(2) { animation-delay: 0.15s; }
+    .client-strip.visible .client-logo:nth-child(3) { animation-delay: 0.2s; }
+    .client-strip.visible .client-logo:nth-child(4) { animation-delay: 0.25s; }
+    .client-strip.visible .client-logo:nth-child(5) { animation-delay: 0.3s; }
+    .client-strip.visible .client-logo:nth-child(6) { animation-delay: 0.35s; }
+    .client-strip.visible .client-logo:nth-child(7) { animation-delay: 0.4s; }
+    .client-strip.visible .client-logo:nth-child(8) { animation-delay: 0.45s; }
+    .client-strip.visible .client-logo:nth-child(9) { animation-delay: 0.5s; }
+    .client-strip.visible .client-logo:nth-child(10) { animation-delay: 0.55s; }
+
+    @keyframes scroll-clients {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    /* ==================== SCROLL INDICATOR ==================== */
+    .scroll-indicator {
+      position: absolute;
+      bottom: 3rem;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 30;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+      opacity: 1;
+      transition: opacity 0.5s ease;
+    }
+
+    .scroll-indicator.hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .scroll-text {
+      font-size: 0.6rem;
+      font-weight: 600;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--color-text-dim);
+    }
+
+    .scroll-icon {
+      width: 24px;
+      height: 40px;
+      border: 2px solid var(--color-border);
+      border-radius: 12px;
+      position: relative;
+    }
+
+    .scroll-icon::before {
+      content: '';
+      position: absolute;
+      top: 6px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 4px;
+      height: 8px;
+      background: var(--xala-green);
+      border-radius: 2px;
+      animation: scroll-bounce 2s ease-in-out infinite;
+      box-shadow: 0 0 10px var(--xala-green-glow);
+    }
+
+    @keyframes scroll-bounce {
+      0%, 100% { transform: translateX(-50%) translateY(0); opacity: 1; }
+      50% { transform: translateX(-50%) translateY(12px); opacity: 0.3; }
+    }
+
+    /* ==================== PROGRESS BAR ==================== */
+    .progress-bar {
+      position: fixed;
+      top: var(--nav-height);
+      left: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--xala-green), var(--color-cyan), var(--xala-green));
+      background-size: 200% 100%;
+      animation: shimmer 3s linear infinite;
+      z-index: 999;
+      transform-origin: left;
+      transform: scaleX(0);
+    }
+
+    /* ==================== CONTENT SECTION ==================== */
+    .content-section {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(180deg, var(--color-bg), var(--color-bg-elevated));
+      padding: 8rem 2rem;
+      position: relative;
+      z-index: 50;
+    }
+
+    .content-inner {
+      max-width: 650px;
+      text-align: center;
+    }
+
+    .content-inner h2 {
+      font-family: var(--font-display);
+      font-size: clamp(1.75rem, 4vw, 3rem);
+      font-weight: 600;
+      margin-bottom: 1.5rem;
+      background: linear-gradient(135deg, var(--color-text), var(--xala-green));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .content-inner p {
+      font-size: 1.1rem;
+      line-height: 1.9;
+      color: var(--color-text-muted);
+    }
+
+    /* ==================== LOADER ==================== */
+    .loader {
+      position: fixed;
+      inset: 0;
+      background: var(--color-bg);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 10000;
+      transition: opacity 0.8s ease;
+    }
+
+    .loader.hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .loader-logo {
+      width: 120px;
+      margin-bottom: 2.5rem;
+      filter: drop-shadow(0 0 30px var(--xala-green-glow));
+      animation: pulse-glow 2s ease-in-out infinite;
+    }
+
+    .loader-bar {
+      width: 200px;
+      height: 3px;
+      background: var(--color-border);
+      border-radius: 3px;
+      overflow: hidden;
+    }
+
+    .loader-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--xala-green), var(--xala-green-bright));
+      border-radius: 3px;
+      width: 0%;
+      transition: width 0.15s ease;
+      box-shadow: 0 0 20px var(--xala-green-glow);
+    }
+
+    .loader-text {
+      margin-top: 1.5rem;
+      font-size: 0.7rem;
+      font-weight: 500;
+      color: var(--color-text-dim);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+    }
+
+    /* ==================== RESPONSIVE ==================== */
+    @media (max-width: 1400px) {
+      .side-panel { width: 260px; }
+      .floating-element { display: none; }
+    }
+
+    @media (max-width: 1200px) {
+      .side-panel { width: 220px; }
+      .nav { padding: 0 2rem; }
+    }
+
+    @media (max-width: 1024px) {
+      .side-panel { display: none; }
+      .nav-links { display: none; }
+      .nav-menu-btn { display: flex; }
+      .hero-canvas { max-width: 90vw !important; max-height: 65vh !important; }
+    }
+
+    @media (max-width: 768px) {
+      .nav { padding: 0 1.5rem; }
+      .hero { height: 350vh; }
+      .hero-logo-icon { width: 70px; height: 70px; }
+      .hero-headline h1 { font-size: clamp(0.9rem, 4vw, 1.2rem); }
+      .client-strip { bottom: 24%; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation: none !important;
+        transition: none !important;
+      }
+      .hero { height: 100vh; }
+      .hero-sticky { position: relative; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Loader -->
+  <div class="loader" id="loader">
+    <img src="logo-icon.png" alt="Xala" class="loader-logo">
+    <div class="loader-bar">
+      <div class="loader-fill" id="loader-fill"></div>
+    </div>
+    <div class="loader-text" id="loader-text">Initializing</div>
+  </div>
+
+  <!-- Background System -->
+  <div class="bg-system">
+    <div class="bg-base"></div>
+    <div class="bg-grid"></div>
+    <div class="bg-dots"></div>
+    <div class="bg-glow-orb glow-1" id="glow1"></div>
+    <div class="bg-glow-orb glow-2" id="glow2"></div>
+    <div class="bg-glow-orb glow-3" id="glow3"></div>
+    <div class="bg-beam"></div>
+    <div class="bg-beam"></div>
+    <div class="bg-beam"></div>
+    <div class="bg-noise"></div>
+  </div>
+
+  <!-- Navigation -->
+  <nav class="nav" id="nav">
+    <div class="nav-inner">
+      <a href="#" class="nav-logo">
+        <img src="logo-full.png" alt="Xala Technologies" class="nav-logo-img">
+      </a>
+      <div class="nav-links">
+        <a href="#" class="nav-link active">Home</a>
+        <a href="#" class="nav-link">Services</a>
+        <a href="#" class="nav-link">Products</a>
+        <a href="#" class="nav-link">Cases</a>
+        <a href="#" class="nav-link">About</a>
+        <button class="nav-cta"><span>Get in Touch</span></button>
+      </div>
+      <button class="nav-menu-btn">
+        <svg width="20" height="14" viewBox="0 0 20 14" fill="none">
+          <path d="M1 1h18M1 7h18M1 13h18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Progress Bar -->
+  <div class="progress-bar" id="progress-bar"></div>
+
+  <!-- Hero Section -->
+  <section class="hero" id="hero">
+    <div class="hero-sticky">
+      <div class="hero-stage">
+        <div class="hero-floor"></div>
+        <div class="hero-spotlight" id="spotlight"></div>
+
+        <!-- Hero Logo -->
+        <div class="hero-logo" id="hero-logo">
+          <img src="logo-icon.png" alt="Xala" class="hero-logo-icon">
+          <span class="hero-logo-tagline">Revolutionising the Future</span>
+        </div>
+
+        <!-- Headline -->
+        <div class="hero-headline" id="hero-headline">
+          <h1>Inside This Box Lies the <strong>Future of Technology</strong> — Engineered by Xala.</h1>
+        </div>
+
+        <!-- Canvas -->
+        <div class="hero-canvas-container">
+          <canvas class="hero-canvas" id="hero-canvas"></canvas>
+        </div>
+
+        <!-- Brand reveal -->
+        <div class="hero-brand" id="hero-brand">
+          <span class="hero-brand-text">Architects of Innovation</span>
+        </div>
+
+        <!-- Floating Tech Badges -->
+        <div class="floating-element tech-1" id="tech1">
+          <div class="tech-badge"><span class="tech-badge-dot"></span>React</div>
+        </div>
+        <div class="floating-element tech-2" id="tech2">
+          <div class="tech-badge"><span class="tech-badge-dot"></span>TypeScript</div>
+        </div>
+        <div class="floating-element tech-3" id="tech3">
+          <div class="tech-badge"><span class="tech-badge-dot"></span>Next.js</div>
+        </div>
+        <div class="floating-element tech-4" id="tech4">
+          <div class="tech-badge"><span class="tech-badge-dot"></span>Node.js</div>
+        </div>
+        <div class="floating-element tech-5" id="tech5">
+          <div class="tech-badge"><span class="tech-badge-dot"></span>Azure</div>
+        </div>
+        <div class="floating-element tech-6" id="tech6">
+          <div class="tech-badge"><span class="tech-badge-dot"></span>AWS</div>
+        </div>
+        <div class="floating-element tech-7" id="tech7">
+          <div class="tech-badge"><span class="tech-badge-dot"></span>Python</div>
+        </div>
+        <div class="floating-element tech-8" id="tech8">
+          <div class="tech-badge"><span class="tech-badge-dot"></span>AI/ML</div>
+        </div>
+
+        <!-- Left Panel -->
+        <div class="side-panel side-panel-left" id="panel-left">
+          <div class="panel-header" id="panel-header-left">
+            <span class="panel-header-text">Services</span>
+            <div class="panel-header-line"></div>
+          </div>
+
+          <div class="future-card service-card" data-delay="0">
+            <div class="service-icon-wrap"><span class="service-icon">🤖</span></div>
+            <div class="service-content">
+              <h3>AI & Machine Learning</h3>
+              <p>Intelligent automation & predictive analytics</p>
+              <div class="service-tags">
+                <span class="service-tag">Enterprise</span>
+                <span class="service-tag">GPT-4</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="future-card service-card" data-delay="100">
+            <div class="service-icon-wrap"><span class="service-icon">☁️</span></div>
+            <div class="service-content">
+              <h3>Cloud Architecture</h3>
+              <p>Scalable infrastructure on Azure & AWS</p>
+              <div class="service-tags">
+                <span class="service-tag">ISO</span>
+                <span class="service-tag">HA</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="future-card service-card" data-delay="200">
+            <div class="service-icon-wrap"><span class="service-icon">💻</span></div>
+            <div class="service-content">
+              <h3>Web Development</h3>
+              <p>Modern React & Next.js applications</p>
+              <div class="service-tags">
+                <span class="service-tag">Full Stack</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="future-card service-card" data-delay="300">
+            <div class="service-icon-wrap"><span class="service-icon">📱</span></div>
+            <div class="service-content">
+              <h3>Mobile Development</h3>
+              <p>Cross-platform iOS & Android</p>
+              <div class="service-tags">
+                <span class="service-tag">Native</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Panel -->
+        <div class="side-panel side-panel-right" id="panel-right">
+          <div class="panel-header" id="panel-header-right">
+            <div class="panel-header-line reverse"></div>
+            <span class="panel-header-text">Products</span>
+          </div>
+
+          <div class="future-card product-card from-right" data-delay="50">
+            <span class="product-status live">Live</span>
+            <div class="product-name">Fylleut</div>
+            <p class="product-desc">AI-powered form & document automation</p>
+            <div class="product-stack">
+              <span>AI</span><span>OCR</span><span>Automation</span>
+            </div>
+          </div>
+
+          <div class="future-card product-card from-right" data-delay="150">
+            <span class="product-status beta">Beta</span>
+            <div class="product-name">NextBid</div>
+            <p class="product-desc">Intelligent tender management & analysis</p>
+            <div class="product-stack">
+              <span>ML</span><span>NLP</span><span>Analytics</span>
+            </div>
+          </div>
+
+          <div class="future-card product-card from-right" data-delay="250">
+            <span class="product-status soon">2025</span>
+            <div class="product-name">SupplyMantix</div>
+            <p class="product-desc">ML supply chain optimization</p>
+            <div class="product-stack">
+              <span>Blockchain</span><span>IoT</span>
+            </div>
+          </div>
+
+          <div class="cert-row" id="cert-row">
+            <div class="cert-badge"><span class="icon">✓</span><span class="label">ISO</span></div>
+            <div class="cert-badge"><span class="icon">🛡</span><span class="label">GDPR</span></div>
+            <div class="cert-badge"><span class="icon">☁</span><span class="label">Azure</span></div>
+            <div class="cert-badge"><span class="icon">⚡</span><span class="label">AWS</span></div>
+          </div>
+        </div>
+
+        <!-- Clients -->
+        <div class="client-strip" id="client-strip">
+          <div class="client-strip-label">
+            <span>Trusted by Industry Leaders</span>
+          </div>
+          <div class="client-track-wrapper">
+            <div class="client-track">
+              <img class="client-logo" src="https://xala.no/clients/altinn.png" alt="Altinn">
+              <img class="client-logo" src="https://xala.no/clients/nhn.png" alt="NHN">
+              <img class="client-logo" src="https://xala.no/clients/norwegian.png" alt="Norwegian">
+              <img class="client-logo" src="https://xala.no/clients/nov2.png" alt="NOV">
+              <img class="client-logo" src="https://xala.no/clients/ssb.png" alt="SSB">
+              <img class="client-logo" src="https://xala.no/clients/sykehuspartner.png" alt="Sykehuspartner">
+              <img class="client-logo" src="https://xala.no/clients/ruter.png" alt="Ruter">
+              <img class="client-logo" src="https://xala.no/clients/unicef.png" alt="UNICEF">
+              <img class="client-logo" src="https://xala.no/clients/usaid.png" alt="USAID">
+              <img class="client-logo" src="https://xala.no/clients/sparebank.png" alt="SpareBank 1">
+              <img class="client-logo" src="https://xala.no/clients/altinn.png" alt="Altinn">
+              <img class="client-logo" src="https://xala.no/clients/nhn.png" alt="NHN">
+              <img class="client-logo" src="https://xala.no/clients/norwegian.png" alt="Norwegian">
+              <img class="client-logo" src="https://xala.no/clients/nov2.png" alt="NOV">
+              <img class="client-logo" src="https://xala.no/clients/ssb.png" alt="SSB">
+              <img class="client-logo" src="https://xala.no/clients/sykehuspartner.png" alt="Sykehuspartner">
+              <img class="client-logo" src="https://xala.no/clients/ruter.png" alt="Ruter">
+              <img class="client-logo" src="https://xala.no/clients/unicef.png" alt="UNICEF">
+              <img class="client-logo" src="https://xala.no/clients/usaid.png" alt="USAID">
+              <img class="client-logo" src="https://xala.no/clients/sparebank.png" alt="SpareBank 1">
+            </div>
+          </div>
+        </div>
+
+        <!-- Scroll Indicator -->
+        <div class="scroll-indicator" id="scroll-indicator">
+          <span class="scroll-text">Scroll to Unlock</span>
+          <div class="scroll-icon"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Content Section -->
+  <section class="content-section">
+    <div class="content-inner">
+      <h2>Revolutionising the Future</h2>
+      <p>
+        From AI-powered automation to enterprise cloud infrastructure —
+        we architect solutions that transform how organizations operate.
+        Trusted by government agencies, healthcare systems, and industry leaders across Norway and beyond.
+      </p>
+    </div>
+  </section>
+
+  <script>
+    const CONFIG = {
+      frameCount: 192,
+      framePath: 'hero-frames-new/frame_',
+      frameExtension: '.png',
+    };
+
+    const state = { frames: [], currentFrame: 0, isLoading: true, loadedCount: 0 };
+    const $ = id => document.getElementById(id);
+
+    const el = {
+      canvas: $('hero-canvas'),
+      canvasContainer: document.querySelector('.hero-canvas-container'),
+      heroLogo: $('hero-logo'),
+      headline: $('hero-headline'),
+      brand: $('hero-brand'),
+      scrollIndicator: $('scroll-indicator'),
+      progressBar: $('progress-bar'),
+      loader: $('loader'),
+      loaderFill: $('loader-fill'),
+      loaderText: $('loader-text'),
+      hero: $('hero'),
+      nav: $('nav'),
+      spotlight: $('spotlight'),
+      panelLeft: $('panel-left'),
+      panelRight: $('panel-right'),
+      panelHeaderLeft: $('panel-header-left'),
+      panelHeaderRight: $('panel-header-right'),
+      clientStrip: $('client-strip'),
+      certRow: $('cert-row'),
+      glows: [$('glow1'), $('glow2'), $('glow3')],
+      techs: Array.from({ length: 8 }, (_, i) => $(`tech${i + 1}`)),
+    };
+
+    const ctx = el.canvas.getContext('2d');
+
+    async function preloadFrames() {
+      const promises = [];
+      for (let i = 0; i < CONFIG.frameCount; i++) {
+        promises.push(new Promise(resolve => {
+          const img = new Image();
+          const idx = String(i).padStart(3, '0');
+          img.onload = () => { state.frames[i] = img; state.loadedCount++; updateLoader(); resolve(); };
+          img.onerror = () => {
+            const img2 = new Image();
+            img2.onload = () => { state.frames[i] = img2; state.loadedCount++; updateLoader(); resolve(); };
+            img2.onerror = () => { state.loadedCount++; updateLoader(); resolve(); };
+            img2.src = `${CONFIG.framePath}${idx}_delay-0.06s${CONFIG.frameExtension}`;
+          };
+          img.src = `${CONFIG.framePath}${idx}_delay-0.03s${CONFIG.frameExtension}`;
+        }));
+      }
+      await Promise.all(promises);
+      state.isLoading = false;
+      el.loaderText.textContent = 'Ready';
+      setTimeout(hideLoader, 500);
+    }
+
+    function updateLoader() {
+      const pct = Math.round((state.loadedCount / CONFIG.frameCount) * 100);
+      el.loaderFill.style.width = `${pct}%`;
+      el.loaderText.textContent = `Loading ${pct}%`;
+    }
+
+    function hideLoader() {
+      el.loader.classList.add('hidden');
+      setCanvasSize();
+      drawFrame(0);
+    }
+
+    function setCanvasSize() {
+      const img = state.frames[0];
+      if (!img) return;
+      el.canvas.width = img.width;
+      el.canvas.height = img.height;
+      const ratio = img.width / img.height;
+      // Make the animation much larger - 75% of viewport width, max 1100px
+      const maxW = Math.min(window.innerWidth * 0.75, 1100);
+      const maxH = window.innerHeight * 0.7;
+      let w = maxW, h = w / ratio;
+      if (h > maxH) { h = maxH; w = h * ratio; }
+      el.canvas.style.width = `${w}px`;
+      el.canvas.style.height = `${h}px`;
+    }
+
+    function drawFrame(idx) {
+      const frame = state.frames[idx];
+      if (!frame) return;
+      ctx.clearRect(0, 0, el.canvas.width, el.canvas.height);
+      ctx.drawImage(frame, 0, 0);
+    }
+
+    function getProgress() {
+      const rect = el.hero.getBoundingClientRect();
+      const scrollable = el.hero.offsetHeight - window.innerHeight;
+      return Math.max(0, Math.min(1, -rect.top / scrollable));
+    }
+
+    function easeOutCubic(t) { return 1 - Math.pow(1 - t, 3); }
+
+    function update() {
+      if (state.isLoading) return;
+      const p = getProgress();
+      const frameIdx = Math.min(CONFIG.frameCount - 1, Math.floor(easeOutCubic(p) * CONFIG.frameCount));
+      if (frameIdx !== state.currentFrame) { state.currentFrame = frameIdx; drawFrame(frameIdx); }
+      updateUI(p);
+    }
+
+    function updateUI(p) {
+      el.progressBar.style.transform = `scaleX(${p})`;
+
+      // Nav
+      p > 0.02 ? el.nav.classList.add('scrolled') : el.nav.classList.remove('scrolled');
+
+      // Hero logo zoom out
+      const logoScale = Math.max(0.2, 1 - p * 2.5);
+      const logoOpacity = Math.max(0, 1 - p * 3.5);
+      el.heroLogo.style.transform = `translateX(-50%) scale(${logoScale}) translateY(-${p * 150}px)`;
+      el.heroLogo.style.opacity = logoOpacity;
+
+      // Headline
+      const headlineOpacity = Math.max(0, 1 - p * 5);
+      el.headline.style.opacity = headlineOpacity;
+      el.headline.style.transform = `translateX(-50%) translateY(${p * 80}px)`;
+
+      // Brand
+      p > 0.82 ? el.brand.classList.add('visible') : el.brand.classList.remove('visible');
+
+      // Scroll indicator
+      p > 0.02 ? el.scrollIndicator.classList.add('hidden') : el.scrollIndicator.classList.remove('hidden');
+
+      // Spotlight
+      p > 0.1 ? el.spotlight.classList.add('visible') : el.spotlight.classList.remove('visible');
+
+      // Canvas glow effect - intensifies as box opens
+      p > 0.15 ? el.canvasContainer.classList.add('glow-active') : el.canvasContainer.classList.remove('glow-active');
+
+      // Panel headers
+      const showPanels = p > 0.05 && p < 0.9;
+      showPanels ? el.panelHeaderLeft.classList.add('visible') : el.panelHeaderLeft.classList.remove('visible');
+      showPanels ? el.panelHeaderRight.classList.add('visible') : el.panelHeaderRight.classList.remove('visible');
+
+      // Service cards
+      el.panelLeft.querySelectorAll('.future-card').forEach((card, i) => {
+        const th = 0.08 + i * 0.055;
+        (p > th && p < 0.88) ? card.classList.add('visible') : card.classList.remove('visible');
+      });
+
+      // Product cards
+      el.panelRight.querySelectorAll('.future-card').forEach((card, i) => {
+        const th = 0.1 + i * 0.06;
+        (p > th && p < 0.88) ? card.classList.add('visible') : card.classList.remove('visible');
+      });
+
+      // Certs
+      (p > 0.38 && p < 0.88) ? el.certRow.classList.add('visible') : el.certRow.classList.remove('visible');
+
+      // Tech badges
+      el.techs.forEach((tech, i) => {
+        if (!tech) return;
+        const th = 0.14 + i * 0.035;
+        (p > th && p < 0.9) ? tech.classList.add('visible') : tech.classList.remove('visible');
+      });
+
+      // Clients
+      (p > 0.22 && p < 0.9) ? el.clientStrip.classList.add('visible') : el.clientStrip.classList.remove('visible');
+
+      // Glows
+      el.glows.forEach((glow, i) => {
+        const th = 0.08 + i * 0.1;
+        p > th ? glow.classList.add('visible') : glow.classList.remove('visible');
+      });
+    }
+
+    let ticking = false;
+    function onScroll() {
+      if (!ticking) { requestAnimationFrame(() => { update(); ticking = false; }); ticking = true; }
+    }
+
+    function onResize() {
+      setCanvasSize();
+      if (state.frames[state.currentFrame]) drawFrame(state.currentFrame);
+    }
+
+    async function init() {
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        const img = new Image();
+        img.onload = () => { state.frames[0] = img; setCanvasSize(); drawFrame(0); hideLoader(); };
+        img.src = `${CONFIG.framePath}000_delay-0.03s${CONFIG.frameExtension}`;
+        return;
+      }
+      await preloadFrames();
+      setCanvasSize();
+      window.addEventListener('scroll', onScroll, { passive: true });
+      window.addEventListener('resize', onResize);
+      update();
+    }
+
+    init();
+  </script>
+</body>
+</html>
