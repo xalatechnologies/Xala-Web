@@ -90,6 +90,7 @@ export function HeroSection({ frames, frameCount, progress }: HeroSectionProps) 
               frames={frames}
               frameIndex={frameIndex}
               glowActive={showCanvasGlow}
+              progress={progress}
             />
           )}
 

@@ -3,14 +3,16 @@ interface HeroHeadlineProps {
 }
 
 export function HeroHeadline({ progress }: HeroHeadlineProps) {
-  const opacity = Math.max(0, 1 - progress * 5);
-  const translateY = progress * 80;
+  // Sync fade timing with logo (complete by ~8% scroll)
+  const t = Math.min(1, progress * 12);
+  const opacity = Math.max(0, 1 - t * 1.2);
+  const translateY = t * 40;
 
   return (
     <div
       style={{
         position: "absolute",
-        top: "22%",
+        top: "28%",
         left: "50%",
         transform: `translateX(-50%) translateY(${translateY}px)`,
         zIndex: 25,

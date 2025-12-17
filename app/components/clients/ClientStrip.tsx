@@ -41,18 +41,18 @@ export function ClientStrip({
       {/* Light background strip for better logo visibility */}
       <div
         style={{
-          background: "linear-gradient(to top, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0.04) 50%, transparent 100%)",
-          backdropFilter: "blur(20px)",
-          WebkitBackdropFilter: "blur(20px)",
-          borderTop: "1px solid rgba(255,255,255,0.1)",
-          padding: "1.5rem 0 2rem",
+          background: "linear-gradient(to top, rgba(255,255,255,0.06) 0%, rgba(255,255,255,0.02) 50%, transparent 100%)",
+          backdropFilter: "blur(10px)",
+          WebkitBackdropFilter: "blur(10px)",
+          borderTop: "1px solid rgba(255,255,255,0.06)",
+          padding: "0.75rem 0 1rem",
         }}
       >
         {/* Label with enhanced styling */}
         <div
           style={{
             textAlign: "center",
-            marginBottom: "1.25rem",
+            marginBottom: "0.6rem",
             opacity: isVisible ? 1 : 0,
             transform: isVisible ? "translateY(0)" : "translateY(10px)",
             transition: "all 0.6s ease 0.3s",
@@ -63,16 +63,16 @@ export function ClientStrip({
               position: "relative",
               display: "inline-block",
               fontFamily: "'Outfit', sans-serif",
-              fontSize: "0.8125rem",
+              fontSize: "0.7rem",
               fontWeight: 600,
               letterSpacing: "0.2em",
               textTransform: "uppercase",
-              color: "rgba(255,255,255,0.6)",
-              padding: "0.6rem 1.75rem",
-              background: "linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.04))",
-              border: "1px solid rgba(255,255,255,0.15)",
+              color: "rgba(255,255,255,0.5)",
+              padding: "0.4rem 1.25rem",
+              background: "linear-gradient(135deg, rgba(255,255,255,0.08), rgba(255,255,255,0.03))",
+              border: "1px solid rgba(255,255,255,0.1)",
               borderRadius: "40px",
-              boxShadow: "0 4px 20px rgba(0,0,0,0.15), inset 0 1px 0 rgba(255,255,255,0.1)",
+              boxShadow: "0 4px 20px rgba(0,0,0,0.15)",
             }}
           >
             Trusted by Industry Leaders
@@ -85,7 +85,7 @@ export function ClientStrip({
             position: "relative",
             WebkitMaskImage: "linear-gradient(90deg, transparent 0%, black 8%, black 92%, transparent 100%)",
             maskImage: "linear-gradient(90deg, transparent 0%, black 8%, black 92%, transparent 100%)",
-            padding: "0.5rem 0",
+            padding: "0.25rem 0",
           }}
         >
           {/* Scrolling track */}

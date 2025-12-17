@@ -18,32 +18,36 @@ export function BackgroundSystem() {
         pointerEvents: "none",
       }}
     >
-      {/* Base gradient */}
+      {/* Base gradient - seamless edge-to-edge */}
       <div
         style={{
           position: "absolute",
-          inset: 0,
+          inset: "-10%",
+          width: "120%",
+          height: "120%",
           background: `
-            radial-gradient(ellipse 100% 70% at 50% 100%, rgba(93,230,122,0.03) 0%, transparent 50%),
-            radial-gradient(ellipse 80% 50% at 20% 20%, rgba(0,212,255,0.02) 0%, transparent 50%),
-            radial-gradient(ellipse 60% 40% at 80% 80%, rgba(168,85,247,0.02) 0%, transparent 50%),
-            #030305
+            radial-gradient(ellipse 120% 80% at 50% 100%, rgba(93,230,122,0.04) 0%, transparent 60%),
+            radial-gradient(ellipse 100% 60% at 20% 20%, rgba(0,212,255,0.03) 0%, transparent 60%),
+            radial-gradient(ellipse 80% 50% at 80% 80%, rgba(168,85,247,0.02) 0%, transparent 60%),
+            radial-gradient(ellipse 150% 100% at 50% 50%, #050508 0%, #030305 100%)
           `,
         }}
       />
 
-      {/* Grid pattern */}
+      {/* Grid pattern - extended to edges */}
       <div
         style={{
           position: "absolute",
-          inset: 0,
+          inset: "-20%",
+          width: "140%",
+          height: "140%",
           backgroundImage: `
-            linear-gradient(rgba(93,230,122,0.03) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(93,230,122,0.03) 1px, transparent 1px)
+            linear-gradient(rgba(93,230,122,0.025) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(93,230,122,0.025) 1px, transparent 1px)
           `,
           backgroundSize: "60px 60px",
-          WebkitMaskImage: "radial-gradient(ellipse 70% 50% at 50% 50%, black 0%, transparent 100%)",
-          maskImage: "radial-gradient(ellipse 70% 50% at 50% 50%, black 0%, transparent 100%)",
+          WebkitMaskImage: "radial-gradient(ellipse 80% 60% at 50% 50%, black 0%, transparent 100%)",
+          maskImage: "radial-gradient(ellipse 80% 60% at 50% 50%, black 0%, transparent 100%)",
         }}
       />
 
@@ -60,48 +64,48 @@ export function BackgroundSystem() {
         }}
       />
 
-      {/* Glow orb 1 */}
+      {/* Glow orb 1 - Left side ambient */}
       <div
         style={{
           position: "absolute",
-          width: "800px",
-          height: "800px",
-          background: "radial-gradient(circle, rgba(93,230,122,0.12) 0%, transparent 70%)",
-          top: "20%",
-          left: "-20%",
+          width: "1000px",
+          height: "1000px",
+          background: "radial-gradient(circle, rgba(93,230,122,0.08) 0%, transparent 60%)",
+          top: "10%",
+          left: "-30%",
           borderRadius: "50%",
-          filter: "blur(100px)",
-          opacity: glowsVisible ? 1 : 0,
+          filter: "blur(120px)",
+          opacity: glowsVisible ? 0.8 : 0,
           transition: "all 2s ease",
           animation: "pulse-glow 8s ease-in-out infinite",
         }}
       />
 
-      {/* Glow orb 2 */}
+      {/* Glow orb 2 - Right side ambient */}
       <div
         style={{
           position: "absolute",
-          width: "600px",
-          height: "600px",
-          background: "radial-gradient(circle, rgba(0,212,255,0.08) 0%, transparent 70%)",
-          top: "10%",
-          right: "-15%",
+          width: "800px",
+          height: "800px",
+          background: "radial-gradient(circle, rgba(0,212,255,0.06) 0%, transparent 60%)",
+          top: "5%",
+          right: "-25%",
           borderRadius: "50%",
-          filter: "blur(100px)",
-          opacity: glowsVisible ? 1 : 0,
+          filter: "blur(120px)",
+          opacity: glowsVisible ? 0.8 : 0,
           transition: "all 2s ease",
           animation: "pulse-glow 10s ease-in-out infinite reverse",
         }}
       />
 
-      {/* Glow orb 3 */}
+      {/* Glow orb 3 - Bottom center floor glow */}
       <div
         style={{
           position: "absolute",
-          width: "1000px",
-          height: "500px",
-          background: "radial-gradient(ellipse, rgba(93,230,122,0.06) 0%, transparent 60%)",
-          bottom: "-10%",
+          width: "120%",
+          height: "600px",
+          background: "radial-gradient(ellipse 60% 100% at 50% 100%, rgba(93,230,122,0.05) 0%, transparent 60%)",
+          bottom: "-20%",
           left: "50%",
           transform: "translateX(-50%)",
           borderRadius: "50%",
