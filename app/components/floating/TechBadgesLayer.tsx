@@ -1,100 +1,82 @@
-"use client";
-
 import { cn } from "~/lib/utils";
-import { TechBadge } from "./TechBadge";
 
-interface TechBadgeConfig {
+interface TechBadge {
   name: string;
-  icon: string;
-  variant?: "default" | "copper" | "cyan" | "purple";
-  position: string;
+  color: string;
+  position: { top: string; left?: string; right?: string };
   delay: number;
 }
 
 interface TechBadgesLayerProps {
-  /** Whether the badges are visible */
   isVisible: boolean;
 }
 
-const techBadges: TechBadgeConfig[] = [
-  {
-    name: "TypeScript",
-    icon: "📘",
-    variant: "cyan",
-    position: "top-[15%] left-[8%]",
-    delay: 0,
-  },
-  {
-    name: "React",
-    icon: "⚛️",
-    variant: "cyan",
-    position: "top-[25%] right-[10%]",
-    delay: 100,
-  },
-  {
-    name: "Node.js",
-    icon: "🟢",
-    variant: "default",
-    position: "top-[40%] left-[5%]",
-    delay: 200,
-  },
-  {
-    name: "PostgreSQL",
-    icon: "🐘",
-    variant: "purple",
-    position: "bottom-[35%] right-[7%]",
-    delay: 300,
-  },
-  {
-    name: "AWS",
-    icon: "☁️",
-    variant: "copper",
-    position: "bottom-[25%] left-[12%]",
-    delay: 400,
-  },
-  {
-    name: "Docker",
-    icon: "🐳",
-    variant: "cyan",
-    position: "bottom-[20%] right-[15%]",
-    delay: 500,
-  },
-  {
-    name: "GraphQL",
-    icon: "◈",
-    variant: "purple",
-    position: "top-[55%] right-[5%]",
-    delay: 600,
-  },
-  {
-    name: "Kubernetes",
-    icon: "☸️",
-    variant: "default",
-    position: "top-[60%] left-[10%]",
-    delay: 700,
-  },
+const techBadges: TechBadge[] = [
+  { name: "React", color: "#5DE67A", position: { top: "28%", left: "19%" }, delay: 0 },
+  { name: "TypeScript", color: "#00d4ff", position: { top: "42%", left: "16%" }, delay: 0.5 },
+  { name: "Next.js", color: "#a855f7", position: { top: "58%", left: "17%" }, delay: 1 },
+  { name: "Node.js", color: "#3b82f6", position: { top: "72%", left: "20%" }, delay: 1.5 },
+  { name: "Azure", color: "#f59e0b", position: { top: "26%", right: "19%" }, delay: 0 },
+  { name: "AWS", color: "#5DE67A", position: { top: "40%", right: "15%" }, delay: 0.5 },
+  { name: "Python", color: "#00d4ff", position: { top: "56%", right: "18%" }, delay: 1 },
+  { name: "AI/ML", color: "#a855f7", position: { top: "70%", right: "21%" }, delay: 1.5 },
 ];
 
 export function TechBadgesLayer({ isVisible }: TechBadgesLayerProps) {
   return (
-    <div
-      className={cn(
-        "fixed inset-0 z-15 pointer-events-none",
-        "transition-opacity duration-500",
-        isVisible ? "opacity-100" : "opacity-0"
-      )}
-    >
-      {techBadges.map((badge) => (
-        <TechBadge
+    <>
+      {techBadges.map((badge, index) => (
+        <div
           key={badge.name}
-          name={badge.name}
-          icon={badge.icon}
-          variant={badge.variant}
-          isVisible={isVisible}
-          delay={badge.delay}
-          className={cn(badge.position, "pointer-events-auto")}
-        />
+          style={{
+            position: "absolute",
+            zIndex: 20,
+            top: badge.position.top,
+            left: badge.position.left,
+            right: badge.position.right,
+            opacity: isVisible ? 1 : 0,
+            transform: isVisible ? "translateY(0)" : "translateY(20px)",
+            transition: `all 1s cubic-bezier(0.4, 0, 0.2, 1) ${0.14 + index * 0.035}s`,
+            animation: isVisible ? `float ${6 + index % 3}s ease-in-out infinite ${badge.delay}s` : "none",
+          }}
+        >
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: "0.6rem",
+              padding: "0.6rem 1.1rem",
+              background: "rgba(3,3,5,0.8)",
+              border: "1px solid rgba(255,255,255,0.06)",
+              borderRadius: "30px",
+              backdropFilter: "blur(10px)",
+              fontSize: "0.75rem",
+              fontWeight: 500,
+              color: "rgba(255,255,255,0.5)",
+            }}
+          >
+            {/* Colored dot */}
+            <span
+              style={{
+                width: "8px",
+                height: "8px",
+                borderRadius: "50%",
+                background: badge.color,
+                boxShadow: `0 0 12px ${badge.color}`,
+              }}
+            />
+            {badge.name}
+          </div>
+        </div>
       ))}
-    </div>
+
+      {/* Add float keyframes */}
+      <style>{`
+        @keyframes float {
+          0%, 100% { transform: translateY(0); }
+          50% { transform: translateY(-20px); }
+        }
+      `}</style>
+    </>
   );
 }

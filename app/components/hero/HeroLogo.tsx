@@ -1,7 +1,4 @@
-import { cn } from "~/lib/utils";
-
 interface HeroLogoProps {
-  /** Scroll progress 0-1 */
   progress: number;
 }
 
@@ -13,32 +10,40 @@ export function HeroLogo({ progress }: HeroLogoProps) {
 
   return (
     <div
-      className={cn(
-        "absolute top-[8%] left-1/2 z-20",
-        "flex flex-col items-center gap-6",
-        "transition-all duration-1000 ease-out-cubic"
-      )}
       style={{
+        position: "absolute",
+        top: "8%",
+        left: "50%",
         transform: `translateX(-50%) scale(${scale}) translateY(-${translateY}px)`,
+        zIndex: 20,
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        gap: "1.5rem",
         opacity,
+        transition: "all 1s cubic-bezier(0.4, 0, 0.2, 1)",
       }}
     >
       <img
-        src="/assets/logo/icon.png"
-        alt="Xala Technologies logo"
-        className={cn(
-          "w-[120px] h-[120px]",
-          "drop-shadow-[0_0_50px_var(--xala-green-glow)]",
-          "transition-all duration-800"
-        )}
+        src="/logo/icon.png"
+        alt="Xala"
+        style={{
+          width: "120px",
+          height: "120px",
+          filter: "drop-shadow(0 0 50px rgba(93,230,122,0.5))",
+          transition: "all 0.8s ease",
+        }}
       />
       <span
-        className={cn(
-          "font-body text-label-lg font-medium",
-          "tracking-[0.4em] uppercase",
-          "text-text-muted",
-          "transition-all duration-600"
-        )}
+        style={{
+          fontFamily: "'Inter', sans-serif",
+          fontSize: "0.85rem",
+          fontWeight: 500,
+          letterSpacing: "0.4em",
+          textTransform: "uppercase",
+          color: "rgba(255,255,255,0.5)",
+          transition: "all 0.6s ease",
+        }}
       >
         Revolutionising the Future
       </span>

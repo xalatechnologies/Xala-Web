@@ -3,51 +3,45 @@ import { cn } from "~/lib/utils";
 interface TechBadgeProps {
   /** Technology name */
   name: string;
-  /** Icon (emoji or component) */
-  icon: string;
   /** Badge variant */
-  variant?: "default" | "copper" | "cyan" | "purple";
+  variant?: "default" | "cyan" | "purple" | "blue" | "gold";
   /** Whether the badge is visible */
   isVisible: boolean;
   /** Animation delay in ms */
   delay?: number;
+  /** Float animation duration */
+  floatDuration?: string;
+  /** Float animation delay */
+  floatDelay?: string;
   /** Custom className for positioning */
   className?: string;
 }
 
 const variantStyles = {
   default: {
-    bg: "from-xala/20 to-xala/5",
-    border: "border-xala/30",
-    text: "text-xala",
-    glow: "shadow-[0_0_20px_rgba(93,230,122,0.3)]",
-  },
-  copper: {
-    bg: "from-copper/20 to-copper/5",
-    border: "border-copper/30",
-    text: "text-copper",
-    glow: "shadow-[0_0_20px_rgba(184,115,51,0.3)]",
+    dotColor: "bg-xala shadow-[0_0_12px_var(--xala-green)]",
   },
   cyan: {
-    bg: "from-accent-cyan/20 to-accent-cyan/5",
-    border: "border-accent-cyan/30",
-    text: "text-accent-cyan",
-    glow: "shadow-[0_0_20px_rgba(0,212,255,0.3)]",
+    dotColor: "bg-accent-cyan shadow-[0_0_12px_var(--accent-cyan)]",
   },
   purple: {
-    bg: "from-accent-purple/20 to-accent-purple/5",
-    border: "border-accent-purple/30",
-    text: "text-accent-purple",
-    glow: "shadow-[0_0_20px_rgba(168,85,247,0.3)]",
+    dotColor: "bg-accent-purple shadow-[0_0_12px_var(--accent-purple)]",
+  },
+  blue: {
+    dotColor: "bg-accent-blue shadow-[0_0_12px_var(--accent-blue)]",
+  },
+  gold: {
+    dotColor: "bg-accent-gold shadow-[0_0_12px_var(--accent-gold)]",
   },
 };
 
 export function TechBadge({
   name,
-  icon,
   variant = "default",
   isVisible,
   delay = 0,
+  floatDuration = "7s",
+  floatDelay = "0s",
   className,
 }: TechBadgeProps) {
   const styles = variantStyles[variant];
@@ -56,19 +50,10 @@ export function TechBadge({
     <div
       className={cn(
         "absolute",
-        "inline-flex items-center gap-2 px-4 py-2",
-        "bg-gradient-to-r",
-        styles.bg,
-        "border",
-        styles.border,
-        "rounded-full",
-        "backdrop-blur-sm",
-        "transition-all duration-700 ease-out-cubic",
-        // Hover effects
-        "hover:scale-105",
-        `hover:${styles.glow}`,
-        // Float animation
-        "animate-float",
+        "inline-flex items-center gap-2.5 px-4 py-2.5",
+        "bg-bg/80 backdrop-blur-[10px]",
+        "border border-border rounded-full",
+        "transition-all duration-1000 ease-out-cubic",
         // Visibility
         isVisible
           ? "opacity-100 translate-y-0"
@@ -77,11 +62,23 @@ export function TechBadge({
       )}
       style={{
         transitionDelay: `${delay}ms`,
-        animationDelay: `${delay * 0.5}ms`,
+        // Use separate animation properties instead of shorthand to avoid React warning
+        animationName: isVisible ? "float" : "none",
+        animationDuration: floatDuration,
+        animationTimingFunction: "ease-in-out",
+        animationIterationCount: "infinite",
+        animationDelay: floatDelay,
       }}
     >
-      <span className="text-lg">{icon}</span>
-      <span className={cn("text-label-sm font-semibold", styles.text)}>
+      {/* Dot indicator */}
+      <span
+        className={cn(
+          "w-2 h-2 rounded-full",
+          styles.dotColor
+        )}
+      />
+      {/* Name */}
+      <span className="text-label-md font-medium text-text-muted">
         {name}
       </span>
     </div>

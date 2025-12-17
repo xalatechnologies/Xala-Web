@@ -1,100 +1,190 @@
-import { cn } from "~/lib/utils";
-
 interface NavigationProps {
-  isScrolled: boolean;
+  scrollProgress: number;
 }
 
 const navLinks = [
-  { href: "#", label: "Home", active: true },
-  { href: "#services", label: "Services" },
-  { href: "#products", label: "Products" },
-  { href: "#cases", label: "Cases" },
-  { href: "#about", label: "About" },
+  { href: "#hero", label: "Home", active: true },
+  { href: "#what-we-deliver", label: "Services" },
+  { href: "#saas-products", label: "Products" },
+  { href: "#clients", label: "Cases" },
+  { href: "#track-record", label: "About" },
 ];
 
-export function Navigation({ isScrolled }: NavigationProps) {
+export function Navigation({ scrollProgress }: NavigationProps) {
+  const isScrolled = scrollProgress > 0.02;
+
   return (
     <nav
-      className={cn(
-        "fixed top-0 left-0 right-0 h-nav z-[1000]",
-        "flex items-center justify-between px-16",
-        "transition-all duration-400 ease-out-cubic",
-        // Background effect on scroll
-        "before:absolute before:inset-0 before:bg-bg/80 before:backdrop-blur-xl",
-        "before:opacity-0 before:transition-opacity before:duration-400",
-        // Bottom border on scroll
-        "after:absolute after:bottom-0 after:left-0 after:right-0 after:h-px",
-        "after:bg-gradient-to-r after:from-transparent after:via-border after:to-transparent",
-        "after:opacity-0 after:transition-opacity after:duration-400",
-        isScrolled && "before:opacity-100 after:opacity-100"
-      )}
+      style={{
+        position: "fixed",
+        top: 0,
+        left: 0,
+        right: 0,
+        height: "80px",
+        zIndex: 1000,
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "space-between",
+        padding: "0 4rem",
+        background: "transparent",
+        transition: "all 0.4s cubic-bezier(0.4, 0, 0.2, 1)",
+      }}
     >
-      <div className="relative z-10 flex items-center justify-between w-full">
+      {/* Background blur layer */}
+      <div
+        style={{
+          position: "absolute",
+          inset: 0,
+          background: "rgba(3, 3, 5, 0.8)",
+          backdropFilter: "blur(20px)",
+          WebkitBackdropFilter: "blur(20px)",
+          opacity: isScrolled ? 1 : 0,
+          transition: "opacity 0.4s ease",
+        }}
+      />
+
+      {/* Bottom border */}
+      <div
+        style={{
+          position: "absolute",
+          bottom: 0,
+          left: 0,
+          right: 0,
+          height: "1px",
+          background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.06), transparent)",
+          opacity: isScrolled ? 1 : 0,
+          transition: "opacity 0.4s ease",
+        }}
+      />
+
+      {/* Nav inner */}
+      <div
+        style={{
+          position: "relative",
+          zIndex: 1,
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+          width: "100%",
+        }}
+      >
         {/* Logo */}
-        <a href="/" className="flex items-center gap-2">
+        <a
+          href="/"
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: "0.5rem",
+            textDecoration: "none",
+          }}
+        >
           <img
-            src="/assets/logo/full.png"
+            src="/logo/full.png"
             alt="Xala Technologies"
-            className="h-7 w-auto glow-xala transition-all duration-300 hover:glow-xala-lg"
+            style={{
+              height: "42px",
+              width: "auto",
+              filter: "drop-shadow(0 0 15px rgba(93,230,122,0.6))",
+              transition: "all 0.3s ease",
+            }}
           />
         </a>
 
         {/* Desktop Navigation */}
-        <div className="hidden lg:flex items-center gap-1">
+        <div
+          className="hidden lg:flex"
+          style={{
+            alignItems: "center",
+            gap: "0.25rem",
+          }}
+        >
           {navLinks.map((link) => (
             <a
               key={link.label}
               href={link.href}
-              className={cn(
-                "relative px-5 py-3 text-sm font-medium rounded-lg",
-                "transition-all duration-200",
-                "overflow-hidden",
-                link.active
-                  ? "text-xala"
-                  : "text-text-muted hover:text-text",
-                // Active dot indicator
-                "before:absolute before:bottom-2 before:left-1/2",
-                "before:-translate-x-1/2 before:w-1 before:h-1",
-                "before:bg-xala before:rounded-full",
-                "before:transition-transform before:duration-200",
-                link.active
-                  ? "before:scale-100 before:shadow-[0_0_10px_var(--xala-green-glow)]"
-                  : "before:scale-0 hover:before:scale-100"
-              )}
+              style={{
+                position: "relative",
+                padding: "0.75rem 1.25rem",
+                fontFamily: "'Manrope', sans-serif",
+                fontSize: "0.9375rem",
+                fontWeight: 500,
+                color: link.active ? "#5DE67A" : "rgba(255,255,255,0.5)",
+                textDecoration: "none",
+                borderRadius: "8px",
+                transition: "all 0.2s ease",
+                overflow: "hidden",
+              }}
+              onMouseEnter={(e) => {
+                if (!link.active) e.currentTarget.style.color = "#ffffff";
+              }}
+              onMouseLeave={(e) => {
+                if (!link.active) e.currentTarget.style.color = "rgba(255,255,255,0.5)";
+              }}
             >
               {link.label}
+              {/* Active dot */}
+              {link.active && (
+                <span
+                  style={{
+                    position: "absolute",
+                    bottom: "0.5rem",
+                    left: "50%",
+                    transform: "translateX(-50%)",
+                    width: "4px",
+                    height: "4px",
+                    background: "#5DE67A",
+                    borderRadius: "50%",
+                    boxShadow: "0 0 10px rgba(93,230,122,0.5)",
+                  }}
+                />
+              )}
             </a>
           ))}
 
           {/* CTA Button */}
           <button
-            className={cn(
-              "relative ml-6 px-6 py-3",
-              "text-sm font-semibold text-bg",
-              "bg-gradient-to-r from-xala to-xala-bright",
-              "rounded-lg cursor-pointer",
-              "transition-all duration-300",
-              "overflow-hidden",
-              "hover:-translate-y-0.5 hover:shadow-[0_10px_30px_var(--xala-green-glow)]",
-              // Hover gradient overlay
-              "before:absolute before:inset-0",
-              "before:bg-gradient-to-r before:from-xala-bright before:to-xala",
-              "before:opacity-0 before:transition-opacity before:duration-300",
-              "hover:before:opacity-100"
-            )}
+            style={{
+              position: "relative",
+              marginLeft: "1.5rem",
+              padding: "0.75rem 1.5rem",
+              fontFamily: "'Outfit', sans-serif",
+              fontSize: "0.9375rem",
+              fontWeight: 600,
+              color: "#030305",
+              background: "linear-gradient(135deg, #5DE67A, #7AFF97)",
+              border: "none",
+              borderRadius: "8px",
+              cursor: "pointer",
+              transition: "all 0.3s ease",
+              overflow: "hidden",
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.transform = "translateY(-2px)";
+              e.currentTarget.style.boxShadow = "0 10px 30px rgba(93,230,122,0.5)";
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.transform = "translateY(0)";
+              e.currentTarget.style.boxShadow = "none";
+            }}
           >
-            <span className="relative z-10">Get in Touch</span>
+            Get in Touch
           </button>
         </div>
 
         {/* Mobile Menu Button */}
         <button
-          className={cn(
-            "lg:hidden flex items-center justify-center",
-            "w-11 h-11 rounded-xl",
-            "bg-bg-surface border border-border",
-            "cursor-pointer"
-          )}
+          className="lg:hidden"
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            width: "44px",
+            height: "44px",
+            background: "rgba(255,255,255,0.02)",
+            border: "1px solid rgba(255,255,255,0.06)",
+            borderRadius: "10px",
+            cursor: "pointer",
+          }}
           aria-label="Open menu"
         >
           <svg
@@ -102,7 +192,7 @@ export function Navigation({ isScrolled }: NavigationProps) {
             height="14"
             viewBox="0 0 20 14"
             fill="none"
-            className="text-text"
+            style={{ color: "white" }}
           >
             <path
               d="M1 1h18M1 7h18M1 13h18"

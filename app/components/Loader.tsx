@@ -3,20 +3,17 @@ import { cn } from "~/lib/utils";
 interface LoaderProps {
   /** Loading progress 0-100 */
   progress: number;
-  /** Whether loading is complete */
-  isComplete: boolean;
-  /** Whether to show the loader */
-  isVisible: boolean;
 }
 
-export function Loader({ progress, isComplete, isVisible }: LoaderProps) {
+export function Loader({ progress }: LoaderProps) {
+  const isComplete = progress >= 100;
+
   return (
     <div
       className={cn(
         "fixed inset-0 z-[10000]",
         "flex flex-col items-center justify-center",
-        "bg-bg transition-opacity duration-800",
-        !isVisible && "opacity-0 pointer-events-none"
+        "bg-bg"
       )}
       role="status"
       aria-live="polite"
@@ -24,9 +21,9 @@ export function Loader({ progress, isComplete, isVisible }: LoaderProps) {
     >
       {/* Logo */}
       <img
-        src="/assets/logo/icon.png"
+        src="/logo/icon.png"
         alt="Xala Technologies"
-        className="w-[120px] mb-10 glow-xala-lg animate-pulse-glow"
+        className="w-[120px] mb-10 drop-shadow-[0_0_30px_rgba(93,230,122,0.5)] animate-pulse-glow"
       />
 
       {/* Progress bar */}

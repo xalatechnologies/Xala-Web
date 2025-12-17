@@ -1,25 +1,30 @@
-import { cn } from "~/lib/utils";
-
 interface ProgressBarProps {
-  /** Progress value 0-1 */
   progress: number;
 }
 
 export function ProgressBar({ progress }: ProgressBarProps) {
   return (
     <div
-      className={cn(
-        "fixed top-nav left-0 h-0.5 z-[999]",
-        "bg-gradient-to-r from-xala via-accent-cyan to-xala",
-        "bg-[length:200%_100%] animate-shimmer",
-        "origin-left transition-transform duration-100"
-      )}
-      style={{ transform: `scaleX(${progress})` }}
-      role="progressbar"
-      aria-valuenow={Math.round(progress * 100)}
-      aria-valuemin={0}
-      aria-valuemax={100}
-      aria-label="Page scroll progress"
-    />
+      style={{
+        position: "fixed",
+        top: "80px",
+        left: 0,
+        height: "2px",
+        background: "linear-gradient(90deg, #5DE67A, #00d4ff, #5DE67A)",
+        backgroundSize: "200% 100%",
+        animation: "shimmer 3s linear infinite",
+        zIndex: 999,
+        transformOrigin: "left",
+        transform: `scaleX(${progress})`,
+        width: "100%",
+      }}
+    >
+      <style>{`
+        @keyframes shimmer {
+          0% { background-position: -200% 0; }
+          100% { background-position: 200% 0; }
+        }
+      `}</style>
+    </div>
   );
 }

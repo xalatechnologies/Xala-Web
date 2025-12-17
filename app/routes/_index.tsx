@@ -1,5 +1,3 @@
-"use client";
-
 import type { MetaFunction } from "@remix-run/node";
 import { useRef, useState, useEffect } from "react";
 import { useScrollProgress, useFramePreloader } from "~/hooks";
@@ -9,6 +7,7 @@ import { HeroSection } from "~/components/hero";
 import {
   WhatWeDeliver,
   TrackRecord,
+  TeamCapabilities,
   ClientsSection,
   NorChainSection,
   SaaSProducts,
@@ -25,7 +24,6 @@ export const meta: MetaFunction = () => {
       content:
         "Engineering-led technology company specializing in AI automation, SaaS platforms, and blockchain infrastructure. Enterprise-grade solutions built for scale.",
     },
-    { name: "viewport", content: "width=device-width, initial-scale=1" },
     { property: "og:title", content: "Xala Technologies - Architects of Innovation" },
     {
       property: "og:description",
@@ -39,14 +37,17 @@ export const meta: MetaFunction = () => {
   ];
 };
 
-const FRAME_COUNT = 192;
-const FRAME_PATH = "/assets/frames";
+// Reduced from 192 to 150 frames for faster loading and cleaner animation end
+const FRAME_COUNT = 150;
+const FRAME_PATH = "/frames";
 
 // Hook for section visibility based on scroll position
 function useSectionVisibility() {
   const [visibleSections, setVisibleSections] = useState<Record<string, boolean>>({});
 
   useEffect(() => {
+    if (typeof window === "undefined") return;
+
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -65,11 +66,16 @@ function useSectionVisibility() {
       }
     );
 
-    // Observe all sections
-    const sections = document.querySelectorAll("section[id]");
-    sections.forEach((section) => observer.observe(section));
+    // Observe all sections after a tick to ensure DOM is ready
+    const timeoutId = setTimeout(() => {
+      const sections = document.querySelectorAll("section[id]");
+      sections.forEach((section) => observer.observe(section));
+    }, 100);
 
-    return () => observer.disconnect();
+    return () => {
+      clearTimeout(timeoutId);
+      observer.disconnect();
+    };
   }, []);
 
   return visibleSections;
@@ -84,11 +90,11 @@ export default function Index() {
     setIsClient(true);
   }, []);
 
-  // Preload animation frames
+  // Preload animation frames - only on client
   const { frames, progress: loadProgress, isLoading } = useFramePreloader({
     frameCount: FRAME_COUNT,
     basePath: FRAME_PATH,
-    enabled: isClient,
+    autoLoad: isClient,
   });
 
   // Track scroll progress for hero
@@ -100,51 +106,67 @@ export default function Index() {
   // Track section visibility
   const visibleSections = useSectionVisibility();
 
-  // Show loader while frames are loading
-  if (isLoading || !isClient) {
-    return <Loader progress={loadProgress} />;
-  }
+  // Determine if we should show loader
+  const showLoader = !isClient || isLoading;
 
   return (
-    <div ref={containerRef} className="relative min-h-screen bg-bg">
-      {/* Background System */}
-      <BackgroundSystem />
+    <>
+      {/* Loader - fixed overlay during frame loading */}
+      {showLoader && (
+        <Loader progress={loadProgress} />
+      )}
 
-      {/* Navigation */}
-      <Navigation scrollProgress={scrollProgress} />
+      {/* Main content */}
+      <div
+        ref={containerRef}
+        className="relative min-h-screen bg-bg"
+        style={{
+          opacity: showLoader ? 0 : 1,
+          transition: "opacity 0.5s ease-out",
+        }}
+      >
+        {/* Background System - fixed behind everything */}
+        <BackgroundSystem />
 
-      {/* Progress Bar */}
-      <ProgressBar progress={scrollProgress} />
+        {/* Navigation - fixed at top */}
+        <Navigation scrollProgress={scrollProgress} />
 
-      {/* Hero Section - Scroll-driven animation */}
-      <HeroSection frames={frames} frameCount={FRAME_COUNT} />
+        {/* Progress Bar */}
+        <ProgressBar progress={scrollProgress} />
 
-      {/* Main Content Sections */}
-      <main>
-        {/* 1. What We Actually Deliver - Three Pillars */}
-        <WhatWeDeliver isVisible={visibleSections["what-we-deliver"] ?? false} />
+        {/* Hero Section - Scroll-driven animation */}
+        <HeroSection frames={frames} frameCount={FRAME_COUNT} />
 
-        {/* 2. Proven Track Record */}
-        <TrackRecord isVisible={visibleSections["track-record"] ?? false} />
+        {/* Main Content Sections */}
+        <main>
+          {/* 1. What We Actually Deliver - Three Pillars */}
+          <WhatWeDeliver isVisible={visibleSections["what-we-deliver"] ?? false} />
 
-        {/* 3. Clients & Partnerships */}
-        <ClientsSection isVisible={visibleSections["clients"] ?? false} />
+          {/* 2. Proven Track Record */}
+          <TrackRecord isVisible={visibleSections["track-record"] ?? false} />
 
-        {/* 4. NorChain - Flagship Blockchain Platform */}
-        <NorChainSection isVisible={visibleSections["norchain"] ?? false} />
+          {/* 3. Team & Capabilities */}
+          <TeamCapabilities isVisible={visibleSections["team"] ?? false} />
 
-        {/* 5. SaaS Products & Platforms */}
-        <SaaSProducts isVisible={visibleSections["saas-products"] ?? false} />
+          {/* 4. Clients & Partnerships */}
+          <ClientsSection isVisible={visibleSections["clients"] ?? false} />
 
-        {/* 6. AI Automation - Deep Dive */}
-        <AIAutomation isVisible={visibleSections["ai-automation"] ?? false} />
+          {/* 4. NorChain - Flagship Blockchain Platform */}
+          <NorChainSection isVisible={visibleSections["norchain"] ?? false} />
 
-        {/* 7. Technology Stack */}
-        <TechStack isVisible={visibleSections["tech-stack"] ?? false} />
-      </main>
+          {/* 5. SaaS Products & Platforms */}
+          <SaaSProducts isVisible={visibleSections["saas-products"] ?? false} />
 
-      {/* Footer */}
-      <Footer />
-    </div>
+          {/* 6. AI Automation - Deep Dive */}
+          <AIAutomation isVisible={visibleSections["ai-automation"] ?? false} />
+
+          {/* 7. Technology Stack */}
+          <TechStack isVisible={visibleSections["tech-stack"] ?? false} />
+        </main>
+
+        {/* Footer */}
+        <Footer />
+      </div>
+    </>
   );
 }

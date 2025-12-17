@@ -122,6 +122,8 @@ export function useCanvasAnimation({
 
   // Handle window resize
   useEffect(() => {
+    if (typeof window === "undefined") return;
+
     const handleResize = () => {
       setupCanvas();
       drawFrame(frameIndex);

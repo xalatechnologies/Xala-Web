@@ -1,4 +1,3 @@
-"use client";
 
 import { cn } from "~/lib/utils";
 
@@ -15,31 +14,31 @@ interface Product {
 
 const products: Product[] = [
   {
-    name: "Xala PM",
-    tagline: "Project Intelligence Platform",
+    name: "Fylleut",
+    tagline: "AI-Powered Form & Document Automation",
     description:
-      "AI-powered project management that predicts bottlenecks, optimizes resource allocation, and automates routine coordination tasks.",
+      "Intelligent automation for form filling and document processing. Extract, validate, and populate data across systems with AI-driven accuracy.",
     status: "live",
-    targetUsers: "Enterprise teams, agencies, product organizations",
-    capabilities: ["Predictive Analytics", "Resource Optimization", "Automated Reporting", "Integration Hub"],
+    targetUsers: "Government agencies, enterprises, legal & finance",
+    capabilities: ["AI", "OCR", "Automation", "Integration"],
   },
   {
-    name: "Xala Auth",
-    tagline: "Enterprise Identity Platform",
+    name: "NextBid",
+    tagline: "Intelligent Tender Management & Analysis",
     description:
-      "Zero-trust authentication with biometric support, adaptive security policies, and seamless SSO integration for enterprise environments.",
+      "AI-powered tender analysis and management platform. Identify opportunities, analyze requirements, and optimize bid strategies.",
     status: "beta",
-    targetUsers: "Security teams, enterprise IT, regulated industries",
-    capabilities: ["Biometric Auth", "Adaptive MFA", "SSO Federation", "Audit Logging"],
+    targetUsers: "Procurement teams, sales organizations, consultancies",
+    capabilities: ["ML", "NLP", "Analytics", "Opportunity Scoring"],
   },
   {
-    name: "Xala Flow",
-    tagline: "Workflow Automation Engine",
+    name: "SupplyMantix",
+    tagline: "ML Supply Chain Optimization",
     description:
-      "Visual workflow builder with AI-assisted automation. Connect systems, automate processes, and eliminate manual handoffs.",
+      "Machine learning platform for supply chain optimization. Predictive analytics, demand forecasting, and blockchain-enabled traceability.",
     status: "development",
-    targetUsers: "Operations teams, process owners, integrators",
-    capabilities: ["Visual Builder", "AI Suggestions", "100+ Connectors", "Version Control"],
+    targetUsers: "Manufacturing, logistics, retail supply chains",
+    capabilities: ["Blockchain", "IoT", "Predictive ML", "Traceability"],
   },
 ];
 
@@ -53,8 +52,8 @@ const statusConfig: Record<ProductStatus, { label: string; className: string }> 
     className: "bg-accent-cyan/15 border-accent-cyan/30 text-accent-cyan",
   },
   development: {
-    label: "In Development",
-    className: "bg-accent-purple/15 border-accent-purple/30 text-accent-purple",
+    label: "2025",
+    className: "bg-white/5 border-white/20 text-text-muted",
   },
 };
 

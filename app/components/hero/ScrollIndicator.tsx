@@ -1,34 +1,67 @@
-import { cn } from "~/lib/utils";
-
 interface ScrollIndicatorProps {
-  /** Whether the indicator is visible */
   isVisible: boolean;
 }
 
 export function ScrollIndicator({ isVisible }: ScrollIndicatorProps) {
   return (
     <div
-      className={cn(
-        "absolute bottom-12 left-1/2 -translate-x-1/2 z-30",
-        "flex flex-col items-center gap-4",
-        "transition-opacity duration-500",
-        isVisible ? "opacity-100" : "opacity-0 pointer-events-none"
-      )}
-      aria-hidden={!isVisible}
+      style={{
+        position: "absolute",
+        bottom: "3rem",
+        left: "50%",
+        transform: "translateX(-50%)",
+        zIndex: 30,
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        gap: "1rem",
+        opacity: isVisible ? 1 : 0,
+        pointerEvents: isVisible ? "auto" : "none",
+        transition: "opacity 0.5s ease",
+      }}
     >
-      <span className="text-label-sm font-semibold tracking-[0.35em] uppercase text-text-dim">
+      <span
+        style={{
+          fontSize: "0.6rem",
+          fontWeight: 600,
+          letterSpacing: "0.35em",
+          textTransform: "uppercase",
+          color: "rgba(255,255,255,0.25)",
+        }}
+      >
         Scroll to Unlock
       </span>
-      <div className="relative w-6 h-10 border-2 border-border rounded-xl">
+      <div
+        style={{
+          width: "24px",
+          height: "40px",
+          border: "2px solid rgba(255,255,255,0.06)",
+          borderRadius: "12px",
+          position: "relative",
+        }}
+      >
         <div
-          className={cn(
-            "absolute top-1.5 left-1/2 -translate-x-1/2",
-            "w-1 h-2 rounded-sm",
-            "bg-xala shadow-[0_0_10px_var(--xala-green-glow)]",
-            "animate-scroll-bounce"
-          )}
+          style={{
+            position: "absolute",
+            top: "6px",
+            left: "50%",
+            transform: "translateX(-50%)",
+            width: "4px",
+            height: "8px",
+            background: "#5DE67A",
+            borderRadius: "2px",
+            animation: "scroll-bounce 2s ease-in-out infinite",
+            boxShadow: "0 0 10px rgba(93,230,122,0.5)",
+          }}
         />
       </div>
+
+      <style>{`
+        @keyframes scroll-bounce {
+          0%, 100% { transform: translateX(-50%) translateY(0); opacity: 1; }
+          50% { transform: translateX(-50%) translateY(12px); opacity: 0.3; }
+        }
+      `}</style>
     </div>
   );
 }

@@ -1,5 +1,6 @@
 export { WhatWeDeliver } from "./WhatWeDeliver";
 export { TrackRecord } from "./TrackRecord";
+export { TeamCapabilities } from "./TeamCapabilities";
 export { ClientsSection } from "./ClientsSection";
 export { NorChainSection } from "./NorChainSection";
 export { SaaSProducts } from "./SaaSProducts";

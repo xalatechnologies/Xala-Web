@@ -1,18 +1,16 @@
-"use client";
-
 import { useRef } from "react";
 import { useScrollProgress, useScrollThreshold } from "~/hooks";
-import { cn } from "~/lib/utils";
 import { CanvasAnimation } from "./CanvasAnimation";
 import { HeroLogo } from "./HeroLogo";
 import { HeroHeadline } from "./HeroHeadline";
 import { HeroBrand } from "./HeroBrand";
 import { ScrollIndicator } from "./ScrollIndicator";
+import { ServicePanel } from "~/components/panels";
+import { ProductPanel } from "~/components/panels";
+import { ClientStrip } from "~/components/clients";
 
 interface HeroSectionProps {
-  /** Loaded animation frames */
   frames: HTMLImageElement[];
-  /** Total frame count */
   frameCount: number;
 }
 
@@ -23,41 +21,68 @@ export function HeroSection({ frames, frameCount }: HeroSectionProps) {
     eased: true,
   });
 
-  // Calculate frame index based on eased progress
   const frameIndex = Math.min(
     frameCount - 1,
     Math.floor(easedProgress * frameCount)
   );
 
-  // Visibility thresholds
+  // Visibility thresholds matching original HTML
   const showScrollIndicator = !useScrollThreshold(progress, 0.02);
   const showSpotlight = useScrollThreshold(progress, 0.1);
   const showCanvasGlow = useScrollThreshold(progress, 0.15);
   const showBrand = useScrollThreshold(progress, 0.82);
+  const showPanels = useScrollThreshold(progress, 0.05, 0.88);
+  const showClients = useScrollThreshold(progress, 0.22, 0.9);
 
   return (
-    <section ref={heroRef} className="relative h-[500vh] z-10" id="hero">
-      <div className="sticky top-0 h-screen flex items-center justify-center overflow-hidden">
-        <div className="relative w-full h-full">
+    <section
+      ref={heroRef}
+      id="hero"
+      style={{ position: "relative", height: "400vh", zIndex: 10 }}
+    >
+      {/* Sticky fullscreen container */}
+      <div
+        style={{
+          position: "sticky",
+          top: 0,
+          height: "100vh",
+          width: "100%",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          overflow: "hidden",
+        }}
+      >
+        <div style={{ position: "relative", width: "100%", height: "100%" }}>
           {/* Floor gradient */}
           <div
-            className={cn(
-              "absolute bottom-0 left-0 right-0 h-1/2",
-              "bg-gradient-to-t from-black/90 via-black/50 to-transparent",
-              "pointer-events-none z-[5]"
-            )}
+            style={{
+              position: "absolute",
+              bottom: 0,
+              left: 0,
+              right: 0,
+              height: "50%",
+              background: "linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.5) 40%, transparent 100%)",
+              pointerEvents: "none",
+              zIndex: 5,
+            }}
           />
 
           {/* Spotlight */}
           <div
-            className={cn(
-              "absolute top-[20%] left-1/2 -translate-x-1/2",
-              "w-[150%] h-full",
-              "bg-[radial-gradient(ellipse_40%_60%_at_50%_0%,rgba(93,230,122,0.03)_0%,transparent_70%)]",
-              "pointer-events-none z-[6]",
-              "transition-opacity duration-[1500ms]",
-              showSpotlight ? "opacity-100" : "opacity-0"
-            )}
+            style={{
+              position: "absolute",
+              top: "20%",
+              left: "50%",
+              transform: "translateX(-50%)",
+              width: "150%",
+              height: "100%",
+              background: "radial-gradient(ellipse 40% 60% at 50% 0%, rgba(93,230,122,0.03) 0%, transparent 70%)",
+              pointerEvents: "none",
+              zIndex: 6,
+              opacity: showSpotlight ? 1 : 0,
+              transition: "opacity 1.5s ease",
+            }}
           />
 
           {/* Hero Logo */}
@@ -74,6 +99,19 @@ export function HeroSection({ frames, frameCount }: HeroSectionProps) {
               glowActive={showCanvasGlow}
             />
           )}
+
+          {/* Left Panel - Services */}
+          <div className="hidden lg:block">
+            <ServicePanel isVisible={showPanels} progress={progress} />
+          </div>
+
+          {/* Right Panel - Products */}
+          <div className="hidden lg:block">
+            <ProductPanel isVisible={showPanels} progress={progress} />
+          </div>
+
+          {/* Client Strip */}
+          <ClientStrip isVisible={showClients} />
 
           {/* Brand Reveal */}
           <HeroBrand isVisible={showBrand} />

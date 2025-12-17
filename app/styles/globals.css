@@ -41,9 +41,11 @@
   --text-muted: rgba(255, 255, 255, 0.5);
   --text-dim: rgba(255, 255, 255, 0.25);
 
-  /* Typography */
-  --font-display: 'Space Grotesk', sans-serif;
-  --font-body: 'Inter', sans-serif;
+  /* Typography - WCAG Friendly */
+  --font-display: 'Outfit', sans-serif;
+  --font-heading: 'Manrope', sans-serif;
+  --font-body: 'Manrope', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
 
   /* Layout */
   --nav-height: 80px;
@@ -58,15 +60,19 @@
 
 html {
   scroll-behavior: smooth;
+  font-size: 16px; /* Base for rem calculations - WCAG minimum */
 }
 
 body {
   background: var(--bg);
   color: var(--text);
   font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.6;
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
 }
 
 /* ==================== UTILITY CLASSES ==================== */

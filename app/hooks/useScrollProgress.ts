@@ -73,6 +73,9 @@ export function useScrollProgress({
   }, [containerRef, eased, easingFn]);
 
   useEffect(() => {
+    // SSR guard
+    if (typeof window === "undefined") return;
+
     const throttledCalculate = rafThrottle(calculateProgress);
 
     window.addEventListener("scroll", throttledCalculate, { passive: true });

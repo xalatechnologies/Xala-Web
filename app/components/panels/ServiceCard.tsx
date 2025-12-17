@@ -26,7 +26,7 @@ export function ServiceCard({
   return (
     <div
       className={cn(
-        "relative",
+        "relative group",
         "bg-gradient-to-br from-white/5 to-white/[0.02]",
         "border border-white/10 rounded-2xl p-6",
         "backdrop-blur-[10px]",
@@ -40,12 +40,12 @@ export function ServiceCard({
         "before:[mask-composite:exclude]",
         "before:opacity-0 before:animate-border-flow before:[animation-play-state:paused]",
         "before:transition-opacity before:duration-300",
-        "hover:before:opacity-100 hover:before:[animation-play-state:running]",
+        "group-hover:before:opacity-100 group-hover:before:[animation-play-state:running]",
         // Corner accent
         "after:absolute after:-top-px after:left-6 after:w-12 after:h-0.5",
         "after:bg-xala after:shadow-[0_0_15px_var(--xala-green-glow)]",
         "after:opacity-0 after:transition-opacity after:duration-300",
-        "hover:after:opacity-100",
+        "group-hover:after:opacity-100",
         // Hover state
         "hover:border-xala/30",
         "hover:bg-gradient-to-br hover:from-xala-glow-subtle hover:to-white/[0.03]",
@@ -66,7 +66,7 @@ export function ServiceCard({
             "bg-gradient-to-br from-xala/15 to-xala/5",
             "border border-xala/25",
             // Glow on hover
-            "before:absolute before:-inset-1 before:rounded-[17px]",
+            "before:absolute before:-inset-[3px] before:rounded-[17px]",
             "before:bg-gradient-to-br before:from-xala before:to-transparent",
             "before:opacity-0 before:transition-opacity before:duration-300",
             "before:-z-10 before:blur-[10px]",
@@ -89,9 +89,9 @@ export function ServiceCard({
               <span
                 key={tag}
                 className={cn(
-                  "inline-flex items-center px-3 py-1.5",
+                  "inline-flex items-center px-3 py-1",
                   "bg-xala/10 border border-xala/20 rounded-md",
-                  "text-tag font-semibold text-xala uppercase"
+                  "text-tag font-semibold text-xala uppercase tracking-[0.05em]"
                 )}
               >
                 {tag}

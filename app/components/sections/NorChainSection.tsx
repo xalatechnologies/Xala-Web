@@ -1,5 +1,3 @@
-"use client";
-
 import { cn } from "~/lib/utils";
 
 const features = [
@@ -58,18 +56,41 @@ export function NorChainSection({ isVisible }: NorChainSectionProps) {
               isVisible ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-10"
             )}
           >
-            <div className="flex items-center gap-3 mb-6">
-              <span className="text-label-sm font-semibold tracking-[0.3em] uppercase text-xala">
-                Flagship Platform
-              </span>
-              <span className="px-2 py-0.5 bg-xala/20 border border-xala/30 rounded text-label-sm text-xala font-medium">
-                Web3
-              </span>
+            {/* NorChain Logo */}
+            <div className="flex items-center gap-4 mb-8">
+              <img
+                src="/norchain/logo_icon.png"
+                alt="NorChain"
+                className={cn(
+                  "w-16 h-16 rounded-xl",
+                  "transition-all duration-500",
+                  isVisible ? "opacity-100 scale-100" : "opacity-0 scale-90"
+                )}
+              />
+              <div>
+                <div className="flex items-center gap-3">
+                  <span className="text-label-sm font-semibold tracking-[0.3em] uppercase text-xala">
+                    Flagship Platform
+                  </span>
+                  <span className="px-2 py-0.5 bg-xala/20 border border-xala/30 rounded text-label-sm text-xala font-medium">
+                    Web3
+                  </span>
+                </div>
+              </div>
             </div>
 
-            <h2 className="font-display text-display-sm font-bold text-text mb-4">
-              NorChain
-            </h2>
+            {/* NorChain Text Logo */}
+            <img
+              src="/norchain/logo_text.png"
+              alt="NorChain"
+              className={cn(
+                "h-12 w-auto mb-4",
+                "transition-all duration-700 ease-out-cubic",
+                isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+              )}
+              style={{ transitionDelay: "100ms" }}
+            />
+
             <p className="text-heading-md text-text-secondary font-medium mb-6">
               Blockchain Infrastructure for the Real World
             </p>

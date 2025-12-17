@@ -48,41 +48,32 @@ export function useFramePreloader({
       return new Promise((resolve) => {
         const img = new Image();
 
-        const tryLoad = (pattern: string) => {
-          img.onload = () => {
-            framesRef.current[index] = img;
-            loadedRef.current++;
+        img.onload = () => {
+          framesRef.current[index] = img;
+          loadedRef.current++;
 
-            setState((prev) => ({
-              ...prev,
-              frames: [...framesRef.current],
-              loadedCount: loadedRef.current,
-              progress: Math.round((loadedRef.current / frameCount) * 100),
-            }));
+          setState((prev) => ({
+            ...prev,
+            frames: [...framesRef.current],
+            loadedCount: loadedRef.current,
+            progress: Math.round((loadedRef.current / frameCount) * 100),
+          }));
 
-            resolve(img);
-          };
-
-          img.onerror = () => {
-            // Try alternate pattern
-            if (pattern === "delay-0.03s") {
-              tryLoad("delay-0.06s");
-            } else {
-              // Still resolve to not block other frames
-              loadedRef.current++;
-              setState((prev) => ({
-                ...prev,
-                loadedCount: loadedRef.current,
-                progress: Math.round((loadedRef.current / frameCount) * 100),
-              }));
-              resolve(img);
-            }
-          };
-
-          img.src = `${basePath}/${getFrameFilename(index, pattern)}`;
+          resolve(img);
         };
 
-        tryLoad("delay-0.03s");
+        img.onerror = () => {
+          // Still resolve to not block other frames
+          loadedRef.current++;
+          setState((prev) => ({
+            ...prev,
+            loadedCount: loadedRef.current,
+            progress: Math.round((loadedRef.current / frameCount) * 100),
+          }));
+          resolve(img);
+        };
+
+        img.src = `${basePath}/${getFrameFilename(index)}`;
       });
     },
     [basePath, frameCount]

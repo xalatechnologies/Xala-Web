@@ -1,22 +1,21 @@
-"use client";
-
 import { cn } from "~/lib/utils";
 
 interface Client {
   name: string;
   sector: string;
-  logo?: string;
+  logo: string;
 }
 
+// Local client logos from /public/clients/
 const clients: Client[] = [
-  { name: "Sparebank 1", sector: "Financial Services" },
-  { name: "Telenor", sector: "Telecommunications" },
-  { name: "DNB", sector: "Banking" },
-  { name: "Equinor", sector: "Energy" },
-  { name: "Norwegian Defence", sector: "Government" },
-  { name: "Storebrand", sector: "Insurance" },
-  { name: "Vipps", sector: "FinTech" },
-  { name: "Aker Solutions", sector: "Engineering" },
+  { name: "Altinn", sector: "Government", logo: "/clients/altinn.png" },
+  { name: "NHN", sector: "Healthcare", logo: "/clients/nhn.png" },
+  { name: "Norwegian", sector: "Aviation", logo: "/clients/norwegian.png" },
+  { name: "NOV", sector: "Energy & Offshore", logo: "/clients/nov2.png" },
+  { name: "SSB", sector: "Government", logo: "/clients/ssb.png" },
+  { name: "Sykehuspartner", sector: "Healthcare", logo: "/clients/sykehuspartner.png" },
+  { name: "Ruter", sector: "Transportation", logo: "/clients/ruter.png" },
+  { name: "Nordre Follo", sector: "Municipality", logo: "/clients/nordre-follo.png" },
 ];
 
 const testimonial = {
@@ -75,16 +74,20 @@ export function ClientsSection({ isVisible }: ClientsSectionProps) {
               className={cn(
                 "relative group p-6",
                 "bg-white/[0.02] border border-white/10 rounded-xl",
-                "transition-all duration-500",
-                "hover:bg-white/[0.05] hover:border-white/20",
+                "transition-all duration-500 flex flex-col items-center justify-center min-h-[120px]",
+                "hover:bg-white/[0.05] hover:border-xala/30",
                 isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
               )}
               style={{ transitionDelay: `${300 + index * 50}ms` }}
             >
-              <div className="text-body-lg font-display font-semibold text-text mb-1">
-                {client.name}
+              <img
+                src={client.logo}
+                alt={client.name}
+                className="h-10 w-auto opacity-40 grayscale brightness-150 group-hover:opacity-100 group-hover:grayscale-0 group-hover:brightness-100 transition-all duration-500"
+              />
+              <div className="text-label-sm text-text-muted mt-3 opacity-60 group-hover:opacity-100 transition-opacity duration-300">
+                {client.sector}
               </div>
-              <div className="text-label-sm text-text-muted">{client.sector}</div>
             </div>
           ))}
         </div>

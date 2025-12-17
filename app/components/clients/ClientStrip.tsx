@@ -1,104 +1,129 @@
-"use client";
-
-import { cn } from "~/lib/utils";
-
 interface Client {
   name: string;
-  logo?: string;
+  logo: string;
 }
 
 interface ClientStripProps {
-  /** Whether the strip is visible */
   isVisible: boolean;
-  /** Clients to display */
   clients?: Client[];
 }
 
 const defaultClients: Client[] = [
-  { name: "TechCorp" },
-  { name: "InnovateLabs" },
-  { name: "DataFlow" },
-  { name: "CloudScale" },
-  { name: "SecureNet" },
-  { name: "AIVentures" },
-  { name: "FinanceHub" },
-  { name: "HealthTech" },
-  { name: "EcoSystems" },
-  { name: "SmartGrid" },
+  { name: "Altinn", logo: "/clients/altinn.png" },
+  { name: "NHN", logo: "/clients/nhn.png" },
+  { name: "Norwegian", logo: "/clients/norwegian.png" },
+  { name: "NOV", logo: "/clients/nov2.png" },
+  { name: "SSB", logo: "/clients/ssb.png" },
+  { name: "Sykehuspartner", logo: "/clients/sykehuspartner.png" },
+  { name: "Ruter", logo: "/clients/ruter.png" },
+  { name: "Nordre Follo", logo: "/clients/nordre-follo.png" },
 ];
 
 export function ClientStrip({
   isVisible,
   clients = defaultClients,
 }: ClientStripProps) {
-  // Duplicate clients for seamless infinite scroll
   const duplicatedClients = [...clients, ...clients];
 
   return (
     <div
-      className={cn(
-        "fixed bottom-[4%] left-0 right-0 z-20",
-        "overflow-hidden",
-        "transition-all duration-1000 ease-out-cubic",
-        isVisible
-          ? "opacity-100 translate-y-0"
-          : "opacity-0 translate-y-10"
-      )}
+      style={{
+        position: "absolute",
+        bottom: "3%",
+        left: 0,
+        right: 0,
+        zIndex: 20,
+        overflow: "hidden",
+        opacity: isVisible ? 1 : 0,
+        transition: "opacity 1s ease",
+      }}
     >
-      {/* Label */}
-      <div className="text-center mb-4">
-        <span className="text-label-sm font-semibold tracking-[0.3em] uppercase text-text-dim">
-          Trusted By Industry Leaders
+      {/* Label with enhanced styling */}
+      <div
+        style={{
+          textAlign: "center",
+          marginBottom: "1.5rem",
+          opacity: isVisible ? 1 : 0,
+          transform: isVisible ? "translateY(0)" : "translateY(10px)",
+          transition: "all 0.6s ease 0.3s",
+        }}
+      >
+        <span
+          style={{
+            position: "relative",
+            display: "inline-block",
+            fontFamily: "'Outfit', sans-serif",
+            fontSize: "0.8125rem",
+            fontWeight: 600,
+            letterSpacing: "0.2em",
+            textTransform: "uppercase",
+            color: "rgba(255,255,255,0.5)",
+            padding: "0.75rem 2rem",
+            background: "linear-gradient(135deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02))",
+            border: "1px solid rgba(255,255,255,0.1)",
+            borderRadius: "40px",
+            backdropFilter: "blur(12px)",
+            WebkitBackdropFilter: "blur(12px)",
+            boxShadow: "0 8px 32px rgba(0,0,0,0.25), inset 0 1px 0 rgba(255,255,255,0.08)",
+          }}
+        >
+          Trusted by Industry Leaders
         </span>
       </div>
 
-      {/* Scrolling Container */}
-      <div className="relative">
-        {/* Fade edges */}
-        <div className="absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-bg to-transparent z-10 pointer-events-none" />
-        <div className="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-bg to-transparent z-10 pointer-events-none" />
-
+      {/* Track wrapper with mask */}
+      <div
+        style={{
+          position: "relative",
+          WebkitMaskImage: "linear-gradient(90deg, transparent 0%, black 10%, black 90%, transparent 100%)",
+          maskImage: "linear-gradient(90deg, transparent 0%, black 10%, black 90%, transparent 100%)",
+          padding: "0.75rem 0",
+        }}
+      >
         {/* Scrolling track */}
         <div
-          className={cn(
-            "flex items-center gap-12",
-            "animate-scroll-clients",
-            // Pause on hover
-            "hover:[animation-play-state:paused]"
-          )}
           style={{
+            display: "flex",
+            gap: "4rem",
+            animation: isVisible ? "scroll-clients 45s linear infinite" : "none",
             width: "max-content",
           }}
         >
           {duplicatedClients.map((client, index) => (
-            <div
+            <img
               key={`${client.name}-${index}`}
-              className={cn(
-                "flex items-center justify-center",
-                "px-8 py-4",
-                "bg-white/[0.03] border border-white/10 rounded-xl",
-                "backdrop-blur-sm",
-                "transition-all duration-300",
-                "hover:bg-white/[0.06] hover:border-white/20",
-                "hover:scale-105",
-                "min-w-[160px]"
-              )}
-            >
-              {client.logo ? (
-                <img
-                  src={client.logo}
-                  alt={client.name}
-                  className="h-8 w-auto opacity-60 grayscale hover:opacity-100 hover:grayscale-0 transition-all duration-300"
-                />
-              ) : (
-                <span className="text-body-md font-display font-semibold text-text-muted">
-                  {client.name}
-                </span>
-              )}
-            </div>
+              src={client.logo}
+              alt={client.name}
+              style={{
+                height: "24px",
+                opacity: 0.35,
+                filter: "grayscale(1) brightness(2)",
+                transition: "all 0.5s cubic-bezier(0.4, 0, 0.2, 1)",
+                cursor: "pointer",
+                flexShrink: 0,
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.opacity = "1";
+                e.currentTarget.style.filter = "grayscale(0) brightness(1)";
+                e.currentTarget.style.transform = "scale(1.15) translateY(-3px)";
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.opacity = "0.35";
+                e.currentTarget.style.filter = "grayscale(1) brightness(2)";
+                e.currentTarget.style.transform = "scale(1) translateY(0)";
+              }}
+            />
           ))}
         </div>
       </div>
+
+      {/* Animation keyframes */}
+      <style>{`
+        @keyframes scroll-clients {
+          0% { transform: translateX(0); }
+          100% { transform: translateX(-50%); }
+        }
+      `}</style>
     </div>
   );
 }

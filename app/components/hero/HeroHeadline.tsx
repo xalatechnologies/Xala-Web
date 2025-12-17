@@ -1,7 +1,4 @@
-import { cn } from "~/lib/utils";
-
 interface HeroHeadlineProps {
-  /** Scroll progress 0-1 */
   progress: number;
 }
 
@@ -11,35 +8,54 @@ export function HeroHeadline({ progress }: HeroHeadlineProps) {
 
   return (
     <div
-      className={cn(
-        "absolute top-[28%] left-1/2 z-25",
-        "text-center max-w-[900px] px-8",
-        "transition-all duration-800"
-      )}
       style={{
+        position: "absolute",
+        top: "28%",
+        left: "50%",
         transform: `translateX(-50%) translateY(${translateY}px)`,
+        zIndex: 25,
+        textAlign: "center",
+        maxWidth: "1000px",
+        padding: "0 2rem",
         opacity,
+        transition: "all 0.8s ease",
       }}
     >
       <h1
-        className={cn(
-          "font-display text-display-md font-normal",
-          "leading-[1.8] text-text-secondary",
-          "drop-shadow-[0_2px_20px_rgba(0,0,0,0.5)]"
-        )}
+        style={{
+          fontFamily: "'Outfit', sans-serif",
+          fontSize: "clamp(1.35rem, 3vw, 2.25rem)",
+          fontWeight: 400,
+          lineHeight: 1.6,
+          color: "rgba(255,255,255,0.85)",
+          textShadow: "0 2px 30px rgba(0,0,0,0.5)",
+          letterSpacing: "-0.01em",
+        }}
       >
         Inside This Box Lies the{" "}
         <strong
-          className={cn(
-            "font-bold text-gradient-xala",
-            "animate-shimmer bg-[length:300%_100%]",
-            "[text-shadow:none]"
-          )}
+          style={{
+            fontWeight: 700,
+            background: "linear-gradient(135deg, #7AFF97, #5DE67A, #00d4ff, #7AFF97)",
+            backgroundSize: "300% 100%",
+            WebkitBackgroundClip: "text",
+            WebkitTextFillColor: "transparent",
+            backgroundClip: "text",
+            animation: "shimmer 6s linear infinite",
+            textShadow: "none",
+          }}
         >
           Future of Technology
         </strong>{" "}
-        — Engineered by Xala Technologies.
+        — Engineered by Xala.
       </h1>
+
+      <style>{`
+        @keyframes shimmer {
+          0% { background-position: -200% 0; }
+          100% { background-position: 200% 0; }
+        }
+      `}</style>
     </div>
   );
 }
