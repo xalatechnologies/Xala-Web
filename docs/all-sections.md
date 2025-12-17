@@ -86,7 +86,7 @@ It does not explain everything.
 
 Headline (exact):
 
-Inside This Box Lies the Future of Technology — Engineered by Xala Technologies.
+Inside This Box Lies the Future of Innovation — Engineered by Xala Technologies.
 
 Behavior:
 	•	Fully visible when box is closed

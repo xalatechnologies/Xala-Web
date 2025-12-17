@@ -74,7 +74,7 @@ HERO SECTION (SYMBOLIC, NOT SALESY)
 Use the treasury-box hero animation as a metaphor for engineered potential.
 
 Hero headline (use exactly):
-“Inside This Box Lies the Future of Technology — Engineered by Xala Technologies.”
+“Inside This Box Lies the Future of Innovation — Engineered by Xala Technologies.”
 
 Hero behavior:
 - Closed box on load

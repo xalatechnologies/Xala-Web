@@ -29,10 +29,6 @@ function getCurrentSection(progress: number) {
 
 export function ProgressBar({ progress }: ProgressBarProps) {
   const currentSection = getCurrentSection(progress);
-  const showIndicator = progress > 0.01;
-  
-  // Logo opacity - fades in as user scrolls
-  const logoOpacity = Math.min(1, progress * 15);
 
   return (
     <>
@@ -52,21 +48,20 @@ export function ProgressBar({ progress }: ProgressBarProps) {
           pointerEvents: "none",
         }}
       >
-        {/* Background - appears on scroll */}
+        {/* Background - always visible */}
         <div
           style={{
             position: "absolute",
             inset: 0,
-            background: "rgba(3, 3, 5, 0.9)",
+            background: "rgba(3, 3, 5, 0.95)",
             backdropFilter: "blur(20px)",
             WebkitBackdropFilter: "blur(20px)",
-            opacity: showIndicator ? 1 : 0,
-            transition: "opacity 0.4s ease",
+            borderBottom: "1px solid rgba(93, 230, 122, 0.1)",
             zIndex: 0,
           }}
         />
 
-        {/* Logo - left side, fades in on scroll */}
+        {/* Logo - left side, always visible */}
         <a
           href="/"
           style={{
@@ -76,9 +71,7 @@ export function ProgressBar({ progress }: ProgressBarProps) {
             alignItems: "center",
             gap: "0.75rem",
             textDecoration: "none",
-            opacity: logoOpacity,
-            pointerEvents: logoOpacity > 0.3 ? "auto" : "none",
-            transition: "opacity 0.3s ease",
+            pointerEvents: "auto",
           }}
         >
           <img
@@ -105,7 +98,7 @@ export function ProgressBar({ progress }: ProgressBarProps) {
           </span>
         </a>
 
-        {/* Section indicator - right side */}
+        {/* Section indicator - right side, always visible */}
         <div
           style={{
             position: "relative",
@@ -113,9 +106,6 @@ export function ProgressBar({ progress }: ProgressBarProps) {
             display: "flex",
             alignItems: "center",
             gap: "1rem",
-            opacity: showIndicator ? 1 : 0,
-            transform: showIndicator ? "translateY(0)" : "translateY(-10px)",
-            transition: "all 0.4s ease",
           }}
         >
           {/* Section label with dot */}

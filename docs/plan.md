@@ -52,7 +52,7 @@ Scroll Behavior
 
 Copy
 	•	Headline exactly:
-Inside This Box Lies the Future of Technology — Engineered by Xala Technologies.
+Inside This Box Lies the Future of Innovation — Engineered by Xala Technologies.
 	•	Headline fades/de-emphasizes as box opens
 	•	Final frame prioritizes visuals
 
@@ -121,7 +121,7 @@ E. FINAL QA
 
 HERO
 
-Inside This Box Lies the Future of Technology — Engineered by Xala Technologies.
+Inside This Box Lies the Future of Innovation — Engineered by Xala Technologies.
 
 ⸻
 
@@ -214,7 +214,7 @@ HERO SECTION
 - End state: open box with technologies visible
 - No autoplay video
 - Headline must be exactly:
-  “Inside This Box Lies the Future of Technology — Engineered by Xala Technologies.”
+  “Inside This Box Lies the Future of Innovation — Engineered by Xala Technologies.”
 
 DESIGN & MOTION
 - Dark-first design

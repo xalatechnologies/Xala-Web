@@ -28,8 +28,8 @@ export function HeroSection({ frames, frameCount, progress }: HeroSectionProps) 
   const showCanvasGlow = progress > 0.15;
   const showClients = true; // Always visible from page load
   
-  // Panels: always visible, opacity increases from 90% to 100% as user scrolls
-  const panelOpacity = Math.min(1, 0.9 + progress * 1); // 0.9 at start, 1.0 by progress=0.1
+  // Panels: always visible at full opacity
+  const panelOpacity = 1;
 
   return (
     <section
