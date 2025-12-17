@@ -1,0 +1,250 @@
+@import "tailwindcss";
+
+/* ==================== CSS CUSTOM PROPERTIES ==================== */
+:root {
+  /* Xala Green - Primary */
+  --xala-green: #5DE67A;
+  --xala-green-bright: #7AFF97;
+  --xala-green-dark: #2EB65B;
+  --xala-green-glow: rgba(93, 230, 122, 0.5);
+  --xala-green-glow-light: rgba(93, 230, 122, 0.15);
+  --xala-green-glow-subtle: rgba(93, 230, 122, 0.08);
+
+  /* Copper - Secondary */
+  --copper: #b87333;
+  --copper-light: #d4956a;
+  --copper-dark: #8b5a2b;
+
+  /* Patina */
+  --patina: #4a7c6f;
+
+  /* Accents */
+  --accent-cyan: #00d4ff;
+  --accent-blue: #3b82f6;
+  --accent-purple: #a855f7;
+  --accent-gold: #f59e0b;
+
+  /* Backgrounds */
+  --bg: #030305;
+  --bg-elevated: #080810;
+  --bg-surface: rgba(255, 255, 255, 0.02);
+  --bg-surface-hover: rgba(93, 230, 122, 0.05);
+
+  /* Borders */
+  --border: rgba(255, 255, 255, 0.06);
+  --border-hover: rgba(93, 230, 122, 0.2);
+  --border-subtle: rgba(255, 255, 255, 0.1);
+
+  /* Text */
+  --text: #ffffff;
+  --text-secondary: rgba(255, 255, 255, 0.8);
+  --text-muted: rgba(255, 255, 255, 0.5);
+  --text-dim: rgba(255, 255, 255, 0.25);
+
+  /* Typography */
+  --font-display: 'Space Grotesk', sans-serif;
+  --font-body: 'Inter', sans-serif;
+
+  /* Layout */
+  --nav-height: 80px;
+}
+
+/* ==================== BASE STYLES ==================== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ==================== UTILITY CLASSES ==================== */
+
+/* Gradient Text */
+.text-gradient-xala {
+  background: linear-gradient(135deg, var(--xala-green-bright), var(--xala-green), var(--accent-cyan), var(--xala-green-bright));
+  background-size: 300% 100%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.text-gradient-shimmer {
+  background: linear-gradient(90deg, var(--text-dim), var(--text-secondary), var(--text-dim));
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: shimmer 6s linear infinite;
+}
+
+/* Glassmorphism */
+.glass {
+  background: rgba(3, 3, 5, 0.8);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+.glass-subtle {
+  background: rgba(255, 255, 255, 0.02);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+/* Glow Effects */
+.glow-xala {
+  filter: drop-shadow(0 0 20px var(--xala-green-glow));
+}
+
+.glow-xala-lg {
+  filter: drop-shadow(0 0 40px var(--xala-green-glow));
+}
+
+/* Mask Gradients */
+.mask-fade-x {
+  mask-image: linear-gradient(90deg, transparent 0%, black 15%, black 85%, transparent 100%);
+  -webkit-mask-image: linear-gradient(90deg, transparent 0%, black 15%, black 85%, transparent 100%);
+}
+
+.mask-fade-radial {
+  mask-image: radial-gradient(ellipse 70% 50% at 50% 50%, black 0%, transparent 100%);
+  -webkit-mask-image: radial-gradient(ellipse 70% 50% at 50% 50%, black 0%, transparent 100%);
+}
+
+/* ==================== ANIMATIONS ==================== */
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { opacity: 0.5; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.05); }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-20px); }
+}
+
+@keyframes rotate-slow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes beam-scan {
+  0% { transform: translateY(-100%) scaleY(0.5); opacity: 0; }
+  50% { transform: translateY(0%) scaleY(1); opacity: 0.3; }
+  100% { transform: translateY(100%) scaleY(0.5); opacity: 0; }
+}
+
+@keyframes border-flow {
+  0% { background-position: 0% 0%; }
+  100% { background-position: 200% 0%; }
+}
+
+@keyframes scroll-bounce {
+  0%, 100% { transform: translateX(-50%) translateY(0); opacity: 1; }
+  50% { transform: translateX(-50%) translateY(12px); opacity: 0.3; }
+}
+
+@keyframes scroll-clients {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+@keyframes client-reveal {
+  0% {
+    opacity: 0;
+    transform: translateY(20px) scale(0.8);
+    filter: grayscale(1) brightness(2) blur(4px);
+  }
+  100% {
+    opacity: 0.25;
+    transform: translateY(0) scale(1);
+    filter: grayscale(1) brightness(2) blur(0);
+  }
+}
+
+@keyframes fade-in-up {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes scale-in {
+  from { transform: scale(0.95); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+/* ==================== REDUCED MOTION ==================== */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+/* ==================== SCROLLBAR ==================== */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--border-hover);
+}
+
+/* Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--border) var(--bg);
+}
+
+/* ==================== SELECTION ==================== */
+::selection {
+  background: var(--xala-green-glow-light);
+  color: var(--text);
+}
+
+::-moz-selection {
+  background: var(--xala-green-glow-light);
+  color: var(--text);
+}
