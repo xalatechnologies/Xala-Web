@@ -1,13 +1,18 @@
+/**
+ * Navigation Component
+ * Fixed header with logo, nav links, and CTA
+ */
+
 interface NavigationProps {
   scrollProgress: number;
 }
 
 const navLinks = [
   { href: "#hero", label: "Home", active: true },
-  { href: "#what-we-deliver", label: "Services" },
-  { href: "#saas-products", label: "Products" },
-  { href: "#clients", label: "Cases" },
-  { href: "#track-record", label: "About" },
+  { href: "#services", label: "Services" },
+  { href: "#products", label: "Products" },
+  { href: "#cases", label: "Cases" },
+  { href: "#about", label: "About" },
 ];
 
 export function Navigation({ scrollProgress }: NavigationProps) {
@@ -20,24 +25,23 @@ export function Navigation({ scrollProgress }: NavigationProps) {
         top: 0,
         left: 0,
         right: 0,
-        height: "80px",
+        height: "72px",
         zIndex: 1000,
         display: "flex",
         alignItems: "center",
-        justifyContent: "space-between",
-        padding: "0 4rem",
-        background: "transparent",
+        justifyContent: "center",
+        padding: "0 2.5rem",
         transition: "all 0.4s cubic-bezier(0.4, 0, 0.2, 1)",
       }}
     >
-      {/* Background blur layer */}
+      {/* Background blur layer - appears on scroll */}
       <div
         style={{
           position: "absolute",
           inset: 0,
-          background: "rgba(3, 3, 5, 0.8)",
-          backdropFilter: "blur(20px)",
-          WebkitBackdropFilter: "blur(20px)",
+          background: "rgba(3, 3, 5, 0.85)",
+          backdropFilter: "blur(24px)",
+          WebkitBackdropFilter: "blur(24px)",
           opacity: isScrolled ? 1 : 0,
           transition: "opacity 0.4s ease",
         }}
@@ -48,16 +52,16 @@ export function Navigation({ scrollProgress }: NavigationProps) {
         style={{
           position: "absolute",
           bottom: 0,
-          left: 0,
-          right: 0,
+          left: "2.5rem",
+          right: "2.5rem",
           height: "1px",
-          background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.06), transparent)",
+          background: "linear-gradient(90deg, transparent, rgba(93,230,122,0.15), transparent)",
           opacity: isScrolled ? 1 : 0,
           transition: "opacity 0.4s ease",
         }}
       />
 
-      {/* Nav inner */}
+      {/* Nav inner container */}
       <div
         style={{
           position: "relative",
@@ -66,6 +70,7 @@ export function Navigation({ scrollProgress }: NavigationProps) {
           alignItems: "center",
           justifyContent: "space-between",
           width: "100%",
+          maxWidth: "1400px",
         }}
       >
         {/* Logo */}
@@ -74,7 +79,6 @@ export function Navigation({ scrollProgress }: NavigationProps) {
           style={{
             display: "flex",
             alignItems: "center",
-            gap: "0.5rem",
             textDecoration: "none",
           }}
         >
@@ -82,20 +86,20 @@ export function Navigation({ scrollProgress }: NavigationProps) {
             src="/logo/full.png"
             alt="Xala Technologies"
             style={{
-              height: "42px",
+              height: "36px",
               width: "auto",
-              filter: "drop-shadow(0 0 15px rgba(93,230,122,0.6))",
+              filter: "drop-shadow(0 0 12px rgba(93,230,122,0.5))",
               transition: "all 0.3s ease",
             }}
           />
         </a>
 
-        {/* Desktop Navigation */}
+        {/* Desktop Navigation Links */}
         <div
           className="hidden lg:flex"
           style={{
             alignItems: "center",
-            gap: "0.25rem",
+            gap: "0.5rem",
           }}
         >
           {navLinks.map((link) => (
@@ -104,67 +108,56 @@ export function Navigation({ scrollProgress }: NavigationProps) {
               href={link.href}
               style={{
                 position: "relative",
-                padding: "0.75rem 1.25rem",
+                padding: "0.625rem 1rem",
                 fontFamily: "'Manrope', sans-serif",
-                fontSize: "0.9375rem",
+                fontSize: "0.875rem",
                 fontWeight: 500,
-                color: link.active ? "#5DE67A" : "rgba(255,255,255,0.5)",
+                color: link.active ? "#5DE67A" : "rgba(255,255,255,0.55)",
                 textDecoration: "none",
-                borderRadius: "8px",
+                borderRadius: "6px",
                 transition: "all 0.2s ease",
-                overflow: "hidden",
+                letterSpacing: "0.01em",
               }}
               onMouseEnter={(e) => {
-                if (!link.active) e.currentTarget.style.color = "#ffffff";
+                if (!link.active) {
+                  e.currentTarget.style.color = "#ffffff";
+                  e.currentTarget.style.background = "rgba(255,255,255,0.04)";
+                }
               }}
               onMouseLeave={(e) => {
-                if (!link.active) e.currentTarget.style.color = "rgba(255,255,255,0.5)";
+                if (!link.active) {
+                  e.currentTarget.style.color = "rgba(255,255,255,0.55)";
+                  e.currentTarget.style.background = "transparent";
+                }
               }}
             >
               {link.label}
-              {/* Active dot */}
-              {link.active && (
-                <span
-                  style={{
-                    position: "absolute",
-                    bottom: "0.5rem",
-                    left: "50%",
-                    transform: "translateX(-50%)",
-                    width: "4px",
-                    height: "4px",
-                    background: "#5DE67A",
-                    borderRadius: "50%",
-                    boxShadow: "0 0 10px rgba(93,230,122,0.5)",
-                  }}
-                />
-              )}
             </a>
           ))}
 
           {/* CTA Button */}
           <button
             style={{
-              position: "relative",
-              marginLeft: "1.5rem",
-              padding: "0.75rem 1.5rem",
+              marginLeft: "1rem",
+              padding: "0.625rem 1.25rem",
               fontFamily: "'Outfit', sans-serif",
-              fontSize: "0.9375rem",
+              fontSize: "0.875rem",
               fontWeight: 600,
               color: "#030305",
               background: "linear-gradient(135deg, #5DE67A, #7AFF97)",
               border: "none",
-              borderRadius: "8px",
+              borderRadius: "6px",
               cursor: "pointer",
               transition: "all 0.3s ease",
-              overflow: "hidden",
+              boxShadow: "0 2px 12px rgba(93,230,122,0.25)",
             }}
             onMouseEnter={(e) => {
-              e.currentTarget.style.transform = "translateY(-2px)";
-              e.currentTarget.style.boxShadow = "0 10px 30px rgba(93,230,122,0.5)";
+              e.currentTarget.style.transform = "translateY(-1px)";
+              e.currentTarget.style.boxShadow = "0 6px 20px rgba(93,230,122,0.4)";
             }}
             onMouseLeave={(e) => {
               e.currentTarget.style.transform = "translateY(0)";
-              e.currentTarget.style.boxShadow = "none";
+              e.currentTarget.style.boxShadow = "0 2px 12px rgba(93,230,122,0.25)";
             }}
           >
             Get in Touch
@@ -178,26 +171,27 @@ export function Navigation({ scrollProgress }: NavigationProps) {
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
-            width: "44px",
-            height: "44px",
-            background: "rgba(255,255,255,0.02)",
-            border: "1px solid rgba(255,255,255,0.06)",
-            borderRadius: "10px",
+            width: "40px",
+            height: "40px",
+            background: "rgba(255,255,255,0.03)",
+            border: "1px solid rgba(255,255,255,0.08)",
+            borderRadius: "8px",
             cursor: "pointer",
+            transition: "all 0.2s ease",
           }}
           aria-label="Open menu"
         >
           <svg
-            width="20"
-            height="14"
-            viewBox="0 0 20 14"
+            width="18"
+            height="12"
+            viewBox="0 0 18 12"
             fill="none"
-            style={{ color: "white" }}
+            style={{ color: "rgba(255,255,255,0.8)" }}
           >
             <path
-              d="M1 1h18M1 7h18M1 13h18"
+              d="M1 1h16M1 6h16M1 11h16"
               stroke="currentColor"
-              strokeWidth="2"
+              strokeWidth="1.5"
               strokeLinecap="round"
             />
           </svg>

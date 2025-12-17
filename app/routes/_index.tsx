@@ -1,7 +1,7 @@
 import type { MetaFunction } from "@remix-run/node";
 import { useRef, useState, useEffect } from "react";
 import { useScrollProgress, useFramePreloader } from "~/hooks";
-import { Navigation, BackgroundSystem, ProgressBar } from "~/components/layout";
+import { BackgroundSystem, ProgressBar } from "~/components/layout";
 import { Loader } from "~/components/Loader";
 import { HeroSection } from "~/components/hero";
 
@@ -74,10 +74,7 @@ export default function Index() {
         {/* Background System - fixed behind everything */}
         <BackgroundSystem />
 
-        {/* Navigation - fixed at top */}
-        <Navigation scrollProgress={scrollProgress} />
-
-        {/* Progress Bar */}
+        {/* Progress Bar - fixed at top, shows section indicators */}
         <ProgressBar progress={scrollProgress} />
 
         {/* Hero Section - The entire page experience */}

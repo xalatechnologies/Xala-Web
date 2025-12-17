@@ -1,12 +1,18 @@
+/**
+ * Hero Logo Component
+ * Centered hero logo that fades out on scroll
+ * (Header logo is now in ProgressBar component)
+ */
+
 interface HeroLogoProps {
   progress: number;
 }
 
 export function HeroLogo({ progress }: HeroLogoProps) {
-  // Calculate animations based on scroll progress
-  const scale = Math.max(0.2, 1 - progress * 2.5);
-  const opacity = Math.max(0, 1 - progress * 3.5);
-  const translateY = progress * 150;
+  // Fade out as user scrolls (complete by ~8% scroll)
+  const t = Math.min(1, progress * 12);
+  const opacity = Math.max(0, 1 - t * 1.2);
+  const scale = 1 - 0.1 * t;
 
   return (
     <div
@@ -14,35 +20,34 @@ export function HeroLogo({ progress }: HeroLogoProps) {
         position: "absolute",
         top: "8%",
         left: "50%",
-        transform: `translateX(-50%) scale(${scale}) translateY(-${translateY}px)`,
+        transform: `translateX(-50%) scale(${scale})`,
         zIndex: 20,
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
-        gap: "1.5rem",
+        gap: "1.25rem",
         opacity,
-        transition: "all 1s cubic-bezier(0.4, 0, 0.2, 1)",
+        pointerEvents: opacity > 0.3 ? "auto" : "none",
       }}
     >
       <img
         src="/logo/icon.png"
         alt="Xala"
         style={{
-          width: "120px",
-          height: "120px",
-          filter: "drop-shadow(0 0 50px rgba(93,230,122,0.5))",
-          transition: "all 0.8s ease",
+          width: "100px",
+          height: "100px",
+          filter: "drop-shadow(0 0 30px rgba(93,230,122,0.5))",
         }}
       />
       <span
         style={{
-          fontFamily: "'Inter', sans-serif",
-          fontSize: "0.85rem",
+          fontFamily: "'Outfit', sans-serif",
+          fontSize: "0.75rem",
           fontWeight: 500,
-          letterSpacing: "0.4em",
+          letterSpacing: "0.3em",
           textTransform: "uppercase",
           color: "rgba(255,255,255,0.5)",
-          transition: "all 0.6s ease",
+          whiteSpace: "nowrap",
         }}
       >
         Revolutionising the Future

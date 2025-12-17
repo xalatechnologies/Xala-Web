@@ -3,7 +3,6 @@ import { useScrollProgress, useScrollThreshold } from "~/hooks";
 import { CanvasAnimation } from "./CanvasAnimation";
 import { HeroLogo } from "./HeroLogo";
 import { HeroHeadline } from "./HeroHeadline";
-import { HeroBrand } from "./HeroBrand";
 import { ScrollIndicator } from "./ScrollIndicator";
 import { ServicePanel } from "~/components/panels";
 import { ProductPanel } from "~/components/panels";
@@ -30,9 +29,8 @@ export function HeroSection({ frames, frameCount }: HeroSectionProps) {
   const showScrollIndicator = !useScrollThreshold(progress, 0.02);
   const showSpotlight = useScrollThreshold(progress, 0.1);
   const showCanvasGlow = useScrollThreshold(progress, 0.15);
-  const showBrand = useScrollThreshold(progress, 0.82);
   const showPanels = useScrollThreshold(progress, 0.05); // No upper limit - stays visible
-  const showClients = useScrollThreshold(progress, 0.22); // No upper limit - stays visible
+  const showClients = true; // Always visible from page load
 
   return (
     <section
@@ -112,9 +110,6 @@ export function HeroSection({ frames, frameCount }: HeroSectionProps) {
 
           {/* Client Strip */}
           <ClientStrip isVisible={showClients} />
-
-          {/* Brand Reveal */}
-          <HeroBrand isVisible={showBrand} />
 
           {/* Scroll Indicator */}
           <ScrollIndicator isVisible={showScrollIndicator} />
